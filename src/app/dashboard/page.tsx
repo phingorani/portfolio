@@ -131,7 +131,7 @@ export default function DashboardPage() {
         <Divider />
         <List>
           {drawerItems.map((item) => (
-            <ListItem button key={item.text}>
+            <ListItem component="div" key={item.text}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
@@ -150,7 +150,7 @@ export default function DashboardPage() {
         <Divider />
         <List>
           {drawerItems.map((item) => (
-            <ListItem button key={item.text}>
+            <ListItem component="div" key={item.text}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>

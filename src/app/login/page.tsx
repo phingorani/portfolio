@@ -37,7 +37,7 @@ export default function LoginPage() {
         router.push('/dashboard')
         router.refresh()
       }
-    } catch (err) {
+    } catch (_err) {
       setError('An error occurred during login')
     }
   }
@@ -99,8 +99,8 @@ export default function LoginPage() {
           >
             Sign In
           </Button>
-          <Grid container>
-            <Grid item xs>
+          <Grid container justifyContent="space-between">
+            <Grid item>
               <Link href="#" variant="body2">
                 Forgot password?
               </Link>
