@@ -47,3 +47,7 @@ next-env.d.ts
 *.swo
 .DS_Store
 *.iml
+
+# AI CLI
+GEMINI.md
+Resume_Hingorani-2.pdf
