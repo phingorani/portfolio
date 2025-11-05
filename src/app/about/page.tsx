@@ -1,4 +1,7 @@
-import { Box, Typography, Container, Paper, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { Box, Typography, Container, Paper, List, ListItem, ListItemText, Divider, IconButton, Stack } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import EmailIcon from '@mui/icons-material/Email';
 
 export default function AboutPage() {
   return (
@@ -60,13 +63,38 @@ export default function AboutPage() {
           <Typography variant="h6" gutterBottom>
             Contact
           </Typography>
-          <Typography variant="body1" paragraph>
-            - Email: hingorani.pratik@gmail.com
-            <br />
-            - LinkedIn: https://www.linkedin.com/in/pratik-hingorani
-            <br />
-            - GitHub: https://github.com/phingorani
-          </Typography>
+          <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 2 }}>
+            <IconButton
+              aria-label="Email"
+              component="a"
+              href="mailto:hingorani.pratik@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="primary"
+            >
+              <EmailIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              aria-label="LinkedIn"
+              component="a"
+              href="https://www.linkedin.com/in/pratik-hingorani"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="primary"
+            >
+              <LinkedInIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              aria-label="GitHub"
+              component="a"
+              href="https://github.com/phingorani"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="primary"
+            >
+              <GitHubIcon fontSize="large" />
+            </IconButton>
+          </Stack>
         </Box>
       </Paper>
     </Container>
