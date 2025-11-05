@@ -1,4 +1,5 @@
 import { Box, Typography, Container, Paper, Link, Button } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import { projects } from '@/lib/projects';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
@@ -44,7 +45,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              View on GitHub
+              View on <GitHubIcon sx={{ ml: 1 }} />
             </Button>
             {project.slug === 'ai-chatbot' && (
               <Button
