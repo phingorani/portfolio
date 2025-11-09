@@ -29,7 +29,7 @@ const getTheme = (mode: PaletteMode) => createTheme({
         }),
   },
   typography: {
-    fontFamily: 'var(--font-geist-sans)',
+    fontFamily: 'var(--font-inter)', // Use Inter for body copy
     h1: {
       fontFamily: 'var(--font-geist-mono)',
     },
