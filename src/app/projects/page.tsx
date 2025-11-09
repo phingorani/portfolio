@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Typography, Container, Grid, Card, CardContent, CardActions, Chip } from '@mui/material';
-import { projects } from '../../lib/projects';
+import { projects } from '@/lib/projects';
 import { ProjectCardActions } from './components/ProjectCardActions';
 import { motion } from 'framer-motion';
 
