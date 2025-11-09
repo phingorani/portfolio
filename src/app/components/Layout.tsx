@@ -126,7 +126,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const drawerContent = (
     <div>
       <DrawerHeader>
-        <IconButton onClick={handleDrawerClose}>
+        <IconButton onClick={handleDrawerClose} aria-label="close drawer">
           <ChevronLeftIcon />
         </IconButton>
       </DrawerHeader>
@@ -266,7 +266,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
@@ -284,7 +284,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Pratik Hingorani
           </Typography>
-          <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit">
+          <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit" aria-label="toggle light and dark mode">
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
         </Toolbar>

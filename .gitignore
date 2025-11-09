@@ -41,7 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 # IDE
-.idea/
+.idea/*
 .vscode/
 *.swp
 *.swo
@@ -50,4 +50,4 @@ next-env.d.ts
 
 # AI CLI
 GEMINI.md
-Resume_Hingorani-2.pdf
+.aiassistant/*

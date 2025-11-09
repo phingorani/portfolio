@@ -74,6 +74,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`View ${project.title} on GitHub`}
             >
               View on <GitHubIcon sx={{ ml: 1 }} />
             </Button>
@@ -85,6 +86,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 href="https://chatbot-lnoz14skvy.streamlit.app"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`View a demo of ${project.title}`}
+              >
+                View Demo
+              </Button>
+            )}
+            {project.slug === 'image-recognition' && (
+              <Button
+                variant="contained"
+                color="secondary"
+                component="a"
+                href="https://image-rec.streamlit.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View a demo of ${project.title}`}
               >
                 View Demo
               </Button>
