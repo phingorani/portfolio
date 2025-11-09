@@ -1,5 +1,4 @@
-import { Box, Typography, Container, Card, CardContent, CardActions, Chip } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import { Box, Typography, Container, Grid, Card, CardContent, CardActions, Chip } from '@mui/material';
 import { projects } from '../../lib/projects';
 import { ProjectCardActions } from './components/ProjectCardActions';
 
@@ -11,7 +10,7 @@ export default function ProjectsPage() {
       </Typography>
       <Grid container spacing={4} sx={{ mt: 4 }}>
         {projects.map((project) => (
-          <Grid key={project.slug} xs={12} sm={6} md={4}>
+          <Grid key={project.slug} size={{xs:12 , sm:6,  md:4}}>
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
