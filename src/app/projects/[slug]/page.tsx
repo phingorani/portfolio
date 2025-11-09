@@ -1,4 +1,4 @@
-import { Box, Typography, Container, Paper, Link, Button } from '@mui/material';
+import { Box, Typography, Container, Paper, Link, Button, Chip } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { projects } from '@/lib/projects';
 import { notFound } from 'next/navigation';
@@ -37,7 +37,37 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <ReactMarkdown>
             {project.description}
           </ReactMarkdown>
-          <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
+          {project.techStack && (
+            <Box sx={{ mt: 4 }}>
+              <Typography variant="h6" gutterBottom>
+                Tech Stack
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                {project.techStack.map((tech) => (
+                  <Chip
+                    key={tech.name}
+                    label={tech.name}
+                    component="a"
+                    href={tech.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    clickable
+                  />
+                ))}
+              </Box>
+            </Box>
+          )}
+          {project.architecture && (
+            <Box sx={{ mt: 4 }}>
+              <Typography variant="h6" gutterBottom>
+                Architecture
+              </Typography>
+              <ReactMarkdown>
+                {project.architecture}
+              </ReactMarkdown>
+            </Box>
+          )}
+          <Box sx={{ mt: 4, display: 'flex', gap: 2 }}>
             <Button
               variant="contained"
               component="a"

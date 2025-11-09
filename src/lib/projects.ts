@@ -3,9 +3,26 @@ export interface Project {
   title: string;
   description: string;
   githubUrl: string;
+  techStack?: { name: string; url: string }[];
+  architecture?: string;
 }
 
 export const projects: Project[] = [
+  {
+    slug: 'portfolio-website',
+    title: 'Portfolio Website',
+    description: 'This is the website you are currently viewing. It is a personal portfolio to showcase my projects and skills. It is built with a modern tech stack and is designed to be easily maintainable and scalable.',
+    githubUrl: 'https://github.com/phingorani/portfolio',
+    techStack: [
+      { name: 'Next.js', url: 'https://nextjs.org/' },
+      { name: 'React', url: 'https://react.dev/' },
+      { name: 'TypeScript', url: 'https://www.typescriptlang.org/' },
+      { name: 'Material-UI', url: 'https://mui.com/' },
+      { name: 'Framer Motion', url: 'https://www.framer.com/motion/' },
+      { name: 'Vercel', url: 'https://vercel.com/' },
+    ],
+    architecture: 'This website is built with the Next.js App Router, which allows for a hybrid approach of server-side rendering (SSR) and client-side rendering (CSR). The majority of the site is statically generated for performance, with dynamic capabilities for features like the theme toggle. The site is hosted on Vercel, which provides a seamless deployment experience and global CDN.',
+  },
   {
     slug: 'ai-chatbot',
     title: 'AI-Powered Chatbot',

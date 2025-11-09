@@ -1,5 +1,5 @@
-'use client';
 import { createTheme, PaletteMode } from '@mui/material';
+import { amber, orange, grey } from '@mui/material/colors';
 
 const getTheme = (mode: PaletteMode) => createTheme({
   palette: {
@@ -7,38 +7,64 @@ const getTheme = (mode: PaletteMode) => createTheme({
     ...(mode === 'light'
       ? {
           // palette values for light mode
-          primary: {
-            main: '#007BFF',
-            light: '#3395FF',
-            dark: '#0056B3',
-          },
-          secondary: {
-            main: '#E91E63',
-            light: '#ED4B82',
-            dark: '#A31545',
-          },
-          background: {
-            default: '#f4f6f8',
-            paper: '#ffffff',
+          primary: amber,
+          divider: amber[200],
+          text: {
+            primary: grey[900],
+            secondary: grey[800],
           },
         }
       : {
           // palette values for dark mode
-          primary: {
-            main: '#007BFF',
-            light: '#3395FF',
-            dark: '#0056B3',
-          },
-          secondary: {
-            main: '#E91E63',
-            light: '#ED4B82',
-            dark: '#A31545',
-          },
+          primary: orange,
+          divider: grey[800],
           background: {
-            default: '#121212',
-            paper: '#1e1e1e',
+            default: grey[900],
+            paper: '#1E1E1E', // A slightly off-black for paper
+          },
+          text: {
+            primary: '#fff',
+            secondary: grey[500],
           },
         }),
+  },
+  typography: {
+    fontFamily: 'var(--font-geist-sans)',
+    h1: {
+      fontFamily: 'var(--font-geist-mono)',
+    },
+    h2: {
+      fontFamily: 'var(--font-geist-mono)',
+    },
+    h3: {
+      fontFamily: 'var(--font-geist-mono)',
+    },
+    h4: {
+      fontFamily: 'var(--font-geist-mono)',
+    },
+    h5: {
+      fontFamily: 'var(--font-geist-mono)',
+    },
+    h6: {
+      fontFamily: 'var(--font-geist-mono)',
+    },
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
+    },
   },
 });
 
