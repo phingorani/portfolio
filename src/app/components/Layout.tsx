@@ -1,12 +1,11 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { styled, Theme, CSSObject } from '@mui/material/styles';
-import { AppBar as MuiAppBar, Toolbar, IconButton, Typography, Box, Drawer as MuiDrawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme, Collapse } from '@mui/material';
+import { AppBar as MuiAppBar, Toolbar, IconButton, Typography, Box, Drawer as MuiDrawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme, Collapse, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
 import { useColorMode } from '../ThemeRegistry';
@@ -18,7 +17,7 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import ArticleIcon from '@mui/icons-material/Article';
 import BusinessIcon from '@mui/icons-material/Business';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const drawerWidth = 340;
 
@@ -94,6 +93,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const theme = useTheme();
   const { toggleColorMode } = useColorMode();
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     if (!open) {
@@ -111,16 +111,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
     setOpen(false);
   };
 
-  const handleProjectsClick = () => {
-    setProjectsOpen(!projectsOpen);
-  };
-
-  const handleExperienceClick = () => {
-    setExperienceOpen(!experienceOpen);
-  };
-
-  const handleEducationClick = () => {
-    setEducationOpen(!educationOpen);
+  const handleNavClick = (action: () => void, href?: string) => {
+    if (!open) {
+      handleDrawerOpen();
+    } else {
+      if (href) {
+        router.push(href);
+      } else {
+        action();
+      }
+    }
   };
 
   const drawerContent = (
@@ -133,8 +133,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <List>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton
-            component={Link}
-            href="/about"
+            onClick={() => handleNavClick(() => {}, '/about')}
             sx={{
               minHeight: 48,
               justifyContent: open ? 'initial' : 'center',
@@ -148,14 +147,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 justifyContent: 'center',
               }}
             >
-              <PersonIcon />
+              <Avatar
+                alt="Pratik Hingorani"
+                src="/img.png"
+                sx={{ width: 24, height: 24 }}
+              />
             </ListItemIcon>
             <ListItemText primary="About Me" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton
-            onClick={handleProjectsClick}
+            onClick={() => handleNavClick(() => setProjectsOpen(!projectsOpen))}
             sx={{
               minHeight: 48,
               justifyContent: open ? 'initial' : 'center',
@@ -191,7 +194,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </Collapse>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton
-            onClick={handleExperienceClick}
+            onClick={() => handleNavClick(() => setExperienceOpen(!experienceOpen))}
             sx={{
               minHeight: 48,
               justifyContent: open ? 'initial' : 'center',
@@ -227,7 +230,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </Collapse>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton
-            onClick={handleEducationClick}
+            onClick={() => handleNavClick(() => setEducationOpen(!educationOpen))}
             sx={{
               minHeight: 48,
               justifyContent: open ? 'initial' : 'center',
