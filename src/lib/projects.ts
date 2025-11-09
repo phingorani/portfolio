@@ -10,10 +10,10 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'image-recognition',
-    title: 'Image Captioning',
-    description: 'An image captioning application that uses a pre-trained model to generate descriptive captions for images. The user can upload an image or provide an image URL, and the application will generate a caption for it. The application also includes a feedback mechanism to collect user ratings and comments, which are stored in a CSV file for future analysis.',
-    shortDescription: 'An image captioning application using a pre-trained BLIP model.',
+    slug: 'image-description-generator',
+    title: 'Image Description Generator',
+    description: 'An image description generator application that helps with training an untrained model to generate descriptive captions for images. The user can upload an image or provide an image URL, and the application will generate a caption for it. The application also includes a feedback mechanism to collect user ratings and comments, which are stored in a CSV file for future analysis.',
+    shortDescription: 'An image description generator application using a pre-trained BLIP model.',
     githubUrl: 'https://github.com/phingorani/image-recognition',
     techStack: [
       { name: 'Streamlit', url: 'https://streamlit.io/' },

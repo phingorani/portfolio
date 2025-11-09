@@ -91,7 +91,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 View Demo
               </Button>
             )}
-            {project.slug === 'image-recognition' && (
+            {project.slug === 'image-description-generator' && (
               <Button
                 variant="contained"
                 color="secondary"
