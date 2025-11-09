@@ -20,7 +20,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 
-const drawerWidth = 288;
+const drawerWidth = 340;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
