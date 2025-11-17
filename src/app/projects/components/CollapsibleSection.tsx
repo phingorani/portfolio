@@ -9,7 +9,7 @@ interface CollapsibleSectionProps {
   defaultExpanded?: boolean;
 }
 
-export function CollapsibleSection({ title, defaultExpanded = true, children }: PropsWithChildren<CollapsibleSectionProps>) {
+export function CollapsibleSection({ title, defaultExpanded = false, children }: PropsWithChildren<CollapsibleSectionProps>) {
   return (
     <Accordion defaultExpanded={defaultExpanded} sx={{ mb: 2 }}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`${title}-content`} id={`${title}-header`}>

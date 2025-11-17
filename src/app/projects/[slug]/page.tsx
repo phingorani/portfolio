@@ -49,7 +49,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </Typography>
                 </Box>
 
-                <CollapsibleSection title="Project Overview" defaultExpanded>
+                <CollapsibleSection title="Project Overview">
                   {project.description ? (
                     <MarkdownMUI text={project.description} />
                   ) : (
@@ -191,7 +191,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   )}
                 </Box>
 
-                <CollapsibleSection title="Value Proposition" defaultExpanded>
+                <CollapsibleSection title="Value Proposition">
                   {(() => {
                     const shortText = project.shortValueProposition || '';
                     const longText = project.longValueProposition || '';
