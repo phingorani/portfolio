@@ -124,7 +124,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           <Box sx={{ mt: 1 }}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                              src="/DB_vector.png"
+                              src="/db_vector.png"
                               alt="Vectorized Postgres DB diagram"
                               style={{
                                 maxWidth: '100%',
