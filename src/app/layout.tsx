@@ -5,6 +5,7 @@ import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeRegistry from "./ThemeRegistry";
 import { Layout } from "./components/Layout";
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -41,6 +42,7 @@ export default function RootLayout({
         <ThemeRegistry>
           <Layout>{children}</Layout>
         </ThemeRegistry>
+        <Analytics />
       </body>
     </html>
   );
