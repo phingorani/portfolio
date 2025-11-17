@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { styled, Theme, CSSObject } from '@mui/material/styles';
 import { AppBar as MuiAppBar, Toolbar, IconButton, Typography, Box, Drawer as MuiDrawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme, Collapse, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -86,7 +86,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  // "open" represents the pinned state (manual toggle via click)
   const [open, setOpen] = useState(true);
+  // Hover state temporarily expands the nav when not pinned
+  const [hovering, setHovering] = useState(false);
+  const hoverTimeoutRef = useRef<number | null>(null);
   const [projectsOpen, setProjectsOpen] = useState(false);
   const [experienceOpen, setExperienceOpen] = useState(false);
   const [educationOpen, setEducationOpen] = useState(false);
@@ -95,24 +99,44 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!open) {
-      setProjectsOpen(false);
-      setExperienceOpen(false);
-      setEducationOpen(false);
-    }
-  }, [open]);
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setProjectsOpen(false);
+    setExperienceOpen(false);
+    setEducationOpen(false);
+  };
+
+  // Effective open state: pinned open OR currently hovering
+  const effectiveOpen = open || hovering;
+
+  const handleMouseEnter = () => {
+    // Cancel pending close and set hovering true for immediate expansion
+    if (hoverTimeoutRef.current) {
+      window.clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    setHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    // Small delay to prevent flicker when cursor briefly leaves the drawer
+    if (hoverTimeoutRef.current) {
+      window.clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    hoverTimeoutRef.current = window.setTimeout(() => {
+      setHovering(false);
+      hoverTimeoutRef.current = null;
+    }, 150);
   };
 
   const handleNavClick = (action: () => void, href?: string) => {
-    if (!open) {
+    if (!effectiveOpen) {
+      // If collapsed, first interaction pins it open
       handleDrawerOpen();
     } else {
       if (href) {
@@ -136,14 +160,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
             onClick={() => handleNavClick(() => {}, '/about')}
             sx={{
               minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
+              justifyContent: effectiveOpen ? 'initial' : 'center',
               px: 2.5,
             }}
+            aria-label="About Me"
           >
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: open ? 3 : 'auto',
+                mr: effectiveOpen ? 3 : 'auto',
                 justifyContent: 'center',
               }}
             >
@@ -153,7 +178,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 sx={{ width: 24, height: 24 }}
               />
             </ListItemIcon>
-            <ListItemText primary="About Me" sx={{ opacity: open ? 1 : 0 }} />
+            <ListItemText primary="About Me" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding sx={{ display: 'block' }}>
@@ -161,24 +186,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
             onClick={() => handleNavClick(() => setProjectsOpen(!projectsOpen))}
             sx={{
               minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
+              justifyContent: effectiveOpen ? 'initial' : 'center',
               px: 2.5,
             }}
+            aria-label="Projects"
           >
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: open ? 3 : 'auto',
+                mr: effectiveOpen ? 3 : 'auto',
                 justifyContent: 'center',
               }}
             >
               <WorkIcon />
             </ListItemIcon>
-            <ListItemText primary="Projects" sx={{ opacity: open ? 1 : 0 }} />
-            {open && (projectsOpen ? <ExpandLess /> : <ExpandMore />)}
+            <ListItemText primary="Projects" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+            {effectiveOpen && (projectsOpen ? <ExpandLess /> : <ExpandMore />)}
           </ListItemButton>
         </ListItem>
-        <Collapse in={projectsOpen && open} timeout="auto" unmountOnExit>
+        <Collapse in={projectsOpen && effectiveOpen} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {projects.map((project) => (
               <ListItem key={project.slug} disablePadding sx={{ display: 'block' }}>
@@ -197,24 +223,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
             onClick={() => handleNavClick(() => setExperienceOpen(!experienceOpen))}
             sx={{
               minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
+              justifyContent: effectiveOpen ? 'initial' : 'center',
               px: 2.5,
             }}
+            aria-label="Experience"
           >
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: open ? 3 : 'auto',
+                mr: effectiveOpen ? 3 : 'auto',
                 justifyContent: 'center',
               }}
             >
               <BusinessIcon />
             </ListItemIcon>
-            <ListItemText primary="Experience" sx={{ opacity: open ? 1 : 0 }} />
-            {open && (experienceOpen ? <ExpandLess /> : <ExpandMore />)}
+            <ListItemText primary="Experience" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+            {effectiveOpen && (experienceOpen ? <ExpandLess /> : <ExpandMore />)}
           </ListItemButton>
         </ListItem>
-        <Collapse in={experienceOpen && open} timeout="auto" unmountOnExit>
+        <Collapse in={experienceOpen && effectiveOpen} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {experiences.map((experience) => (
               <ListItem key={experience.slug} disablePadding sx={{ display: 'block' }}>
@@ -233,24 +260,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
             onClick={() => handleNavClick(() => setEducationOpen(!educationOpen))}
             sx={{
               minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
+              justifyContent: effectiveOpen ? 'initial' : 'center',
               px: 2.5,
             }}
+            aria-label="Education"
           >
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: open ? 3 : 'auto',
+                mr: effectiveOpen ? 3 : 'auto',
                 justifyContent: 'center',
               }}
             >
               <SchoolIcon />
             </ListItemIcon>
-            <ListItemText primary="Education" sx={{ opacity: open ? 1 : 0 }} />
-            {open && (educationOpen ? <ExpandLess /> : <ExpandMore />)}
+            <ListItemText primary="Education" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+            {effectiveOpen && (educationOpen ? <ExpandLess /> : <ExpandMore />)}
           </ListItemButton>
         </ListItem>
-        <Collapse in={educationOpen && open} timeout="auto" unmountOnExit>
+        <Collapse in={educationOpen && effectiveOpen} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {educations.map((education) => (
               <ListItem key={education.slug} disablePadding sx={{ display: 'block' }}>
@@ -270,7 +298,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={effectiveOpen}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -279,7 +307,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             edge="start"
             sx={{
               marginRight: 5,
-              ...(open && { display: 'none' }),
+              ...(effectiveOpen && { display: 'none' }),
             }}
           >
             <MenuIcon />
@@ -292,7 +320,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={effectiveOpen}
+        PaperProps={{
+          onMouseEnter: handleMouseEnter,
+          onMouseLeave: handleMouseLeave,
+        }}
+      >
         {drawerContent}
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3, backgroundColor: theme.palette.background.default }}>

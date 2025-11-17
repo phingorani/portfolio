@@ -1,4 +1,4 @@
-import { Box, Typography, Container, Paper, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Typography, Container, Paper, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { experiences } from '@/lib/experience';
 import Link from 'next/link';
 

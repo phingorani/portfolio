@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -18,7 +18,8 @@
     "next-auth": "^4.24.13",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "react-markdown": "^10.1.0"
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -70,13 +70,13 @@ export default function AboutPage() {
                 My passion lies in leveraging technology to solve real-world problems. At Hyatt, I am currently leading the charge to infuse AI into the core of our reservation systems. This includes architecting a data aggregation pipeline using gRPC and GraphQL to feed a Large Language Model (Claude 3.5 Haiku), which generates personalized customer proposals and saves our sales team countless hours. Furthermore, I developed an AI-powered reasoning model that increased high-value lead revenue by 32% through intelligent ranking.
               </Typography>
               <Typography variant="body1" paragraph>
-                My expertise spans the full software development lifecycle. On the frontend, I have extensive experience with modern frameworks like React, Next.js, and Angular, creating robust and reusable component libraries and micro-frontend architectures with Module Federation. On the backend, I've designed and implemented resilient CRUD APIs using Spring Boot and serverless functions with AWS Lambda. My work has directly contributed to significant business growth, including launching a new booking website that generated over $5.4M in revenue.
+                My expertise spans the full software development lifecycle. On the frontend, I have extensive experience with modern frameworks like React, Next.js, and Angular, creating robust and reusable component libraries and micro-frontend architectures with Module Federation. On the backend, I&apos;ve designed and implemented resilient CRUD APIs using Spring Boot and serverless functions with AWS Lambda. My work has directly contributed to significant business growth, including launching a new booking website that generated over $5.4M in revenue.
               </Typography>
               <Typography variant="body1" paragraph>
                 Beyond feature development, I am deeply committed to building resilient and secure infrastructure. I have been instrumental in modernizing legacy systems by migrating VM-based applications to scalable Docker and Kubernetes environments and have redesigned enterprise-level security by integrating SSO with Azure Entra and Multi-Factor Authentication.
               </Typography>
               <Typography variant="body1" paragraph>
-                I am driven by the challenge of building what's next and am always exploring new ways to apply technology to create intuitive, powerful, and impactful user experiences.
+                I am driven by the challenge of building what&apos;s next and am always exploring new ways to apply technology to create intuitive, powerful, and impactful user experiences.
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -91,10 +91,10 @@ export default function AboutPage() {
             <SportsEsportsIcon sx={{ mr: 1 }} /> Hobbies
           </Typography>
           <Typography variant="body1" paragraph>
-            When I'm not coding, I enjoy a variety of activities that keep me balanced and inspired. I'm an avid hiker, and I love exploring new trails and spending time in nature. I'm also a passionate homelabber, and I enjoy building and experimenting with my own servers and network infrastructure. And when it's time to unwind, I'm a dedicated gamer, and I love diving into new worlds and challenging myself with new games.
+            When I&apos;m not coding, I enjoy a variety of activities that keep me balanced and inspired. I&apos;m an avid hiker, and I love exploring new trails and spending time in nature. I&apos;m also a passionate homelabber, and I enjoy building and experimenting with my own servers and network infrastructure. And when it&apos;s time to unwind, I&apos;m a dedicated gamer, and I love diving into new worlds and challenging myself with new games.
           </Typography>
           <Typography variant="body1" paragraph>
-            Some of the national parks I've had the pleasure of visiting include:
+            Some of the national parks I&apos;ve had the pleasure of visiting include:
           </Typography>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2 }}>
             {nationalParks.map((park) => (

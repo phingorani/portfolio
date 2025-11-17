@@ -3,6 +3,7 @@
 import { Box, Typography, Container, Grid, Card, CardContent, CardActions, Chip } from '@mui/material';
 import { projects } from '@/lib/projects';
 import { ProjectCardActions } from './components/ProjectCardActions';
+import { ProjectDescription } from './components/ProjectDescription';
 import { motion } from 'framer-motion';
 
 const cardVariants = {
@@ -39,9 +40,7 @@ export default function ProjectsPage() {
                   <Typography gutterBottom variant="h5" component="h2">
                     {project.title}
                   </Typography>
-                  <Typography color="text.secondary" sx={{ mb: 2 }}>
-                    {project.shortDescription}
-                  </Typography>
+                  <ProjectDescription project={project} />
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                     {project.techStack?.slice(0, 4).map((tech) => (
                       <Chip key={tech.name} label={tech.name} size="small" />

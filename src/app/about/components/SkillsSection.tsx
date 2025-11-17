@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Box, Typography, TextField, Chip } from '@mui/material';
+import { Box, Typography, TextField, Chip, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import BuildIcon from '@mui/icons-material/Build';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface Skill {
   name: string;
@@ -24,6 +25,7 @@ const skills: Skills = {
     { name: 'Node.js', url: 'https://nodejs.org/' },
     { name: 'Spring Framework', url: 'https://spring.io/' },
     { name: 'Django', url: 'https://www.djangoproject.com/' },
+    { name: 'Flask', url: 'https://flask.palletsprojects.com/' },
   ],
   UI: [
     { name: 'AngularJs', url: 'https://angularjs.org/' },
@@ -42,8 +44,10 @@ const skills: Skills = {
     { name: 'Pillow', url: 'https://python-pillow.org/' },
     { name: 'Transformers', url: 'https://huggingface.co/docs/transformers/index' },
     { name: 'PyTorch', url: 'https://pytorch.org/' },
+    { name: 'torchvision', url: 'https://pytorch.org/vision/stable/index.html' },
     { name: 'LangChain', url: 'https://www.langchain.com/' },
     { name: 'Gemini', url: 'https://deepmind.google/technologies/gemini/' },
+    { name: 'scikit-learn', url: 'https://scikit-learn.org/' },
   ],
   Persistence: [
     { name: 'Mybatis', url: 'https://mybatis.org/mybatis-3/' },
@@ -56,6 +60,8 @@ const skills: Skills = {
     { name: 'SQLite', url: 'https://www.sqlite.org/' },
     { name: 'DynamoDB', url: 'https://aws.amazon.com/dynamodb/' },
     { name: 'Aurora', url: 'https://aws.amazon.com/rds/aurora/' },
+    { name: 'psycopg2-binary', url: 'https://pypi.org/project/psycopg2-binary/' },
+    { name: 'pgvector', url: 'https://pypi.org/project/pgvector/' },
   ],
   Testing: [
     { name: 'Karma', url: 'https://karma-runner.github.io/' },
@@ -72,6 +78,13 @@ const skills: Skills = {
     { name: 'Bitbucket', url: 'https://bitbucket.org/' },
     { name: 'Splunk', url: 'https://www.splunk.com/' },
     { name: 'Git', url: 'https://git-scm.com/' },
+  ],
+  Tools: [
+    { name: 'watchdog', url: 'https://pypi.org/project/watchdog/' },
+    { name: 'Javacord', url: 'https://javacord.org/' },
+    { name: 'Requests', url: 'https://requests.readthedocs.io/en/latest/' },
+    { name: 'OpenCV', url: 'https://opencv.org/' },
+    { name: 'Potrace', url: 'http://potrace.sourceforge.net/' },
   ],
   SDLC: [
     { name: 'Agile', url: 'https://www.atlassian.com/agile' },
@@ -108,40 +121,50 @@ export function SkillsSection() {
   }, [searchTerm]);
 
   return (
-    <>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-        <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', mb: 0 }}>
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="skills-content"
+        id="skills-header"
+      >
+        <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
           <BuildIcon sx={{ mr: 1 }} /> Skills
         </Typography>
-        <TextField
-          label="Search Skills"
-          variant="outlined"
-          size="small"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{ width: '50%' }}
-        />
-      </Box>
-      {Object.entries(filteredSkills).map(([category, skillList]) => (
-        <Box key={category} sx={{ mb: 2 }}>
-          <Typography variant="subtitle1" gutterBottom>
-            <b>{category}</b>
-          </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-            {skillList.map((skill) => (
-              <Chip
-                key={skill.name}
-                label={skill.name}
-                component="a"
-                href={skill.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                clickable
-              />
-            ))}
+      </AccordionSummary>
+      <AccordionDetails>
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+            <TextField
+              label="Search Skills"
+              variant="outlined"
+              size="small"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              sx={{ width: '50%' }}
+            />
           </Box>
+          {Object.entries(filteredSkills).map(([category, skillList]) => (
+            <Box key={category} sx={{ mb: 2 }}>
+              <Typography variant="subtitle1" gutterBottom>
+                <b>{category}</b>
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                {skillList.map((skill) => (
+                  <Chip
+                    key={skill.name}
+                    label={skill.name}
+                    component="a"
+                    href={skill.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    clickable
+                  />
+                ))}
+              </Box>
+            </Box>
+          ))}
         </Box>
-      ))}
-    </>
+      </AccordionDetails>
+    </Accordion>
   );
 }

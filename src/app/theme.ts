@@ -20,7 +20,9 @@ const getTheme = (mode: PaletteMode) => createTheme({
           divider: grey[800],
           background: {
             default: grey[900],
-            paper: '#1E1E1E', // A slightly off-black for paper
+            // Make panels (Paper/Card/Accordion) lighter in dark mode for better contrast and airier feel
+            // Previously '#1E1E1E' which was darker than the page background; use a lighter grey instead.
+            paper: grey[800],
           },
           text: {
             primary: '#fff',
