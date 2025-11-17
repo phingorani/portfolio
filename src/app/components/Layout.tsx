@@ -87,7 +87,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export function Layout({ children }: { children: React.ReactNode }) {
   // "open" represents the pinned state (manual toggle via click)
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   // Hover state temporarily expands the nav when not pinned
   const [hovering, setHovering] = useState(false);
   const hoverTimeoutRef = useRef<number | null>(null);
