@@ -25,14 +25,12 @@ export default function ProjectsPage() {
       </Typography>
       <Grid container spacing={4} sx={{ mt: 4 }}>
         {projects.map((project, index) => (
-          <Grid key={project.slug} size={{xs:12, sm:6, md:4}}>
+          <Grid item xs={12} sm={6} md={4} key={project.slug}>
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              whileHover={{ y: -5, boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.2)' }}
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardVariants}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.03, boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.2)' }}
+              transition={{ duration: 0.5 }}
               style={{ height: '100%' }}
             >
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>

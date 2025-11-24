@@ -58,110 +58,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </CollapsibleSection>
 
                 <CollapsibleSection title="Process">
-                  {project.slug === 'image-description-generator' ? (
-                    <Box sx={{ textAlign: 'left' }}>
-                      <List sx={{ listStyleType: 'disc', pl: 3 }}>
-                        <ListItem sx={{ display: 'list-item' }}>
-                          <ListItemText
-                            primaryTypographyProps={{ variant: 'body1' }}
-                            primary={
-                              'The requirements were to quickly start a model that allows us to iteratively train an image recognition model to recognize and give us the description of the image. I created this artifact that allows users to upload an image. Once the image is uploaded it uses BLIP (a vision-language pretraining (VLP)) model that runs through 12 layers of Vision transformers and then finally spits out a coherent text description.'
-                            }
-                          />
-                        </ListItem>
-                        <ListItem sx={{ display: 'list-item' }}>
-                          <ListItemText
-                            primaryTypographyProps={{ variant: 'body1' }}
-                            primary={
-                              'In order to use this tool, please follow instructions and requirements mentioned here. Please note the demo in the portfolio may or may not run due to resource availability under the free tier of Streamlit. For best results please run it locally.'
-                            }
-                          />
-                        </ListItem>
-                        <ListItem sx={{ display: 'list-item' }}>
-                          <ListItemText
-                            primaryTypographyProps={{ variant: 'body1' }}
-                            primary={
-                              'Next, I built a portfolio website as GitHub did not seem to satisfy the requirements of 1.6. I decided to use Vercel to host my portfolio as it represents my skills as a software developer to develop an application from scratch. I built the components in the following order: left nav → experience → education → projects → about me, and set the general theme of the application.'
-                            }
-                          />
-                        </ListItem>
-                        <ListItem sx={{ display: 'list-item' }}>
-                          <Box>
-                            <Typography variant="body1" sx={{ mb: 1 }}>
-                              Things that were considered when developing the portfolio by browsing other portfolios for ideas were:
-                            </Typography>
-                            <List sx={{ listStyleType: 'circle', pl: 4 }}>
-                              <ListItem sx={{ display: 'list-item' }}>
-                                <ListItemText primaryTypographyProps={{ variant: 'body1' }} primary={"Night and Day mode to assure we're not burning anyone's eyes."} />
-                              </ListItem>
-                              <ListItem sx={{ display: 'list-item' }}>
-                                <ListItemText primaryTypographyProps={{ variant: 'body1' }} primary={'Make all a TLDR (Too long; didn\'t read) summary of the sections.'} />
-                              </ListItem>
-                              <ListItem sx={{ display: 'list-item' }}>
-                                <ListItemText primaryTypographyProps={{ variant: 'body1' }} primary={'Not add too much overwhelming text per section.'} />
-                              </ListItem>
-                              <ListItem sx={{ display: 'list-item' }}>
-                                <ListItemText primaryTypographyProps={{ variant: 'body1' }} primary={'Use symbolic icons over text and buttons to show better UX design.'} />
-                              </ListItem>
-                              <ListItem sx={{ display: 'list-item' }}>
-                                <ListItemText primaryTypographyProps={{ variant: 'body1' }} primary={'Link demos when we can to projects.'} />
-                              </ListItem>
-                            </List>
-                          </Box>
-                        </ListItem>
-                      </List>
-                    </Box>
-                  ) : project.slug === 'image-vectorizer' ? (
-                    <Box sx={{ textAlign: 'left' }}>
-                      <List sx={{ listStyleType: 'disc', pl: 3 }}>
-                        <ListItem sx={{ display: 'list-item' }}>
-                          <ListItemText
-                            primaryTypographyProps={{ variant: 'body1' }}
-                            primary={
-                              'While thinking about enhancing the Image generator from 2.5 and learning about training Deep learning models I was thinking about how I can make sure the models remember for long term and from each other’s memory. After a little bit of research I was able to come up with a solution of using a vector DB to map the AI models learning data. The vector DB takes the weights assigned by a model when processing an image and saves it to a Postgres’s DB with “n” dimension vectoring where “n” is the number of data points. I created a docker image with vectorized Postgres DB that makes sure the learnt data is preserved.'
-                            }
-                          />
-                          <Box sx={{ mt: 1 }}>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src="/db_vector.png"
-                              alt="Vectorized Postgres DB diagram"
-                              style={{
-                                maxWidth: '100%',
-                                height: 'auto',
-                                borderRadius: 8,
-                                border: '1px solid #ddd',
-                                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                                marginTop: '0.5em',
-                              }}
-                            />
-                          </Box>
-                        </ListItem>
-                        <ListItem sx={{ display: 'list-item' }}>
-                          <ListItemText
-                            primaryTypographyProps={{ variant: 'body1' }}
-                            primary={
-                              'While uploading images I wanted to show a visualization of the data in the database. This was a complicated endeavor since the data was “n” demential and it hard to visualize it in a UI. So I made the hard decision to only show those datapoint that have the highest level of variance between the vectors. At first I used the tried and test chart.js to represent the to biggest vectors datapoints in a 2d x and y axis chart. But I got some feedback from my partner to try to add more dimensions. So I researched and implemented poorly which allows 3d charts.'
-                            }
-                          />
-                          <Box sx={{ mt: 1 }}>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src="/ui_vector.png"
-                              alt="UI vector visualization screenshot"
-                              style={{
-                                maxWidth: '100%',
-                                height: 'auto',
-                                borderRadius: 8,
-                                border: '1px solid #ddd',
-                                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                                marginTop: '0.5em',
-                              }}
-                            />
-                          </Box>
-                        </ListItem>
-                      </List>
-                    </Box>
+                  {project.process ? (
+                    <MarkdownMUI text={project.process} />
                   ) : (
                     <Typography variant="body1" paragraph>
                       {`This section will highlight the development process for ${project.title}.`}
@@ -218,11 +116,31 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </CollapsibleSection>
 
                 <CollapsibleSection title="Evidence">
-                  {/* Optional textual evidence intro */}
-                  {project.evidenceText && (
-                    <Box sx={{ mb: 2 }}>
-                      <MarkdownMUI text={project.evidenceText} />
+                  {project.evidenceSections && project.evidenceSections.length > 0 ? (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      {project.evidenceSections.map((section, index) => (
+                        <Box key={index} sx={{ mb: 2 }}>
+                          {section.imageSrc && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={section.imageSrc}
+                              alt={`Evidence image ${index + 1}`}
+                              style={{
+                                maxWidth: '100%',
+                                height: 'auto',
+                                borderRadius: 8,
+                                border: '1px solid #ddd',
+                                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                                marginBottom: '1em', // Added margin-bottom here
+                              }}
+                            />
+                          )}
+                          <MarkdownMUI text={section.text} />
+                        </Box>
+                      ))}
                     </Box>
+                  ) : (
+                    <Typography variant="body1" paragraph>No evidence provided.</Typography>
                   )}
 
                   {/* README evidence if provided */}
@@ -230,8 +148,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <ReadmeAccordion url={project.readmeUrl} />
                   )}
 
-                  {/* Fallback when nothing provided */}
-                  {!project.evidenceText && !project.readmeUrl && (
+                  {/* Fallback when nothing provided (redundant now, but kept for clarity in diff) */}
+                  {!project.evidenceSections?.length && !project.readmeUrl && (
                     <Typography variant="body1" paragraph>No evidence provided.</Typography>
                   )}
                 </CollapsibleSection>
@@ -250,25 +168,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             >
               View on <GitHubIcon sx={{ ml: 1 }} />
             </Button>
-            {project.slug === 'ai-chatbot' && (
+            {project.demoUrl && ( // Add this block for demoUrl
               <Button
                 variant="contained"
                 color="secondary"
                 component="a"
-                href="https://chatbot-lnoz14skvy.streamlit.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`View a demo of ${project.title}`}
-              >
-                View Demo
-              </Button>
-            )}
-            {project.slug === 'image-description-generator' && (
-              <Button
-                variant="contained"
-                color="secondary"
-                component="a"
-                href="https://image-rec.streamlit.app"
+                href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`View a demo of ${project.title}`}

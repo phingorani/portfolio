@@ -4,6 +4,7 @@ export interface Project {
   description: string;
   shortDescription: string;
   githubUrl: string;
+  demoUrl?: string;
   techStack?: { name: string; url: string }[];
   architecture?: string;
   readmeUrl?: string;
@@ -19,10 +20,9 @@ export interface Project {
   shortValueProposition?: string;
   longValueProposition?: string;
   reflection?: string;         // maps to "Reflection"
-  evidenceText?: string;       // maps to "Evidence" (text content shown above README/images)
-  evidenceImages?: {           // optional extra evidence beyond README (local images, diagrams)
-    src: string;
-    alt?: string;
+  evidenceSections?: {
+    imageSrc?: string;
+    text: string;
   }[];
 }
 
@@ -161,5 +161,49 @@ export const projects: Project[] = [
     shortValueProposition: 'Automates moderation workflows with an extensible command framework for Discord.',
     process: 'Define moderation features → Implement bot with Javacord → Structure with Spring → Iterate features.',
     reflection: 'Future: plugin system and permission scopes to customize per server.',
+  },
+  {
+    slug: 'prediction-algorithm',
+    title: 'Interactive Data Cleaning & Prediction Web App',
+    description: 'This project is an interactive web application built with Streamlit that demonstrates data cleaning, imputation, and visualization techniques on a synthetic credit score dataset. Users can view the data, visualize it on a scatter plot, and use machine learning models to predict missing values for FICO scores and annual incomes.',
+    shortDescription: 'An interactive web application for data cleaning, imputation, and visualization.',
+    githubUrl: 'https://github.com/phingorani/prediction-algorithm',
+    demoUrl: 'https://data-cleansing.streamlit.app/',
+    readmeUrl: 'https://raw.githubusercontent.com/phingorani/prediction-algorithm/master/README.md',
+    techStack: [
+      { name: 'Streamlit', url: 'https://streamlit.io/' },
+      { name: 'Pandas', url: 'https://pandas.pydata.org/' },
+      { name: 'Scikit-learn', url: 'https://scikit-learn.org/' },
+      { name: 'Altair', url: 'https://altair-viz.github.io/' },
+      { name: 'Python', url: 'https://www.python.org/' },
+    ],
+    objective: 'Transform messy, incomplete data into a clean, predictive powerhouse. This interactive app demonstrates how to fill in the gaps with machine learning, turning a flawed dataset into a reliable one for making smarter decisions.',
+    overview: 'The application loads a dataset of FICO scores and annual incomes, which contains some missing values. The main interface presents a complete view of the data and a scatter plot visualizing the relationship between FICO scores and income.\n\nBelow the main chart, a set of interactive buttons allows the user to perform data manipulation tasks. These tasks are powered by scikit-learn models and include:\n- **Predicting Missing FICO Scores**: Uses a Linear Regression model trained on `Annual_Income` to predict missing `FICO_Score` values.\n- **Predicting Missing Annual Incomes**: Uses a K-Nearest Neighbors (KNN) Regressor model trained on `FICO_Score` to predict missing `Annual_Income` values.\n- **Cleaning Records**: Removes records where both `FICO_Score` and `Annual_Income` are missing.\n\nThe application is designed to be reactive. After each action, the main data grid and chart update to reflect the changes, providing immediate visual feedback. Predicted data points are highlighted in both the grid and the chart to distinguish them from original data.',
+    shortValueProposition: 'This project is crucial for demonstrating my analytical prowess and ability to solve complex data challenges with practical machine learning solutions. This project showcases the ability to rapidly prototype and deploy an interactive data science application. It combines data manipulation, machine learning, and data visualization into a single, user-friendly web interface. It serves as an excellent educational tool for demonstrating the practical application of data science concepts.',
+    longValueProposition: '\n\n#### Reflection\n\n- **Customization for the Audience:** The intended audience is aspiring data scientists and analysts. I tailored the project to be highly visual and interactive, allowing users to click buttons and immediately see the impact of data cleaning and prediction on both the raw data and the chart. This provides a more intuitive and hands-on learning experience than just reading through code.\n\n- **Lessons Learned:** I learned that the order of operations in a data cleaning pipeline is critical. It was more effective to predict the FICO scores first (since less data was missing) and then use those imputed values to get a more accurate prediction for the annual incomes. I also learned that for this particular dataset, KNN was more effective for the income data because it could capture non-linear relationships that a simple linear regression might miss.\n\n- **Feedback and Revisions:** Initial feedback was that it wasn\'t clear what order to press the buttons in. To address this, I orchestrated the backend to disable and enable buttons in the correct sequence, guiding the user through the logical workflow: `Clean -> Predict FICO -> Predict Income`. This made the user experience much more intuitive and enforced the correct data science process.',
+    process: '### The Spark of an Idea: From Stock Market to Data Puzzles\n\nMy journey began with an ambitious goal: to build an application that could analyze corporate earnings reports and tell me whether to buy, sell, or hold a stock. However, I quickly hit a wall. The sheer scale of the language models required and the scarcity of free, high-quality stock data made this a monumental task. More importantly, it didn\'t allow me to get my hands dirty with a core data science skill I wanted to demonstrate: data cleaning and manipulation.\n\n### A New Direction: Inspiration from a Classic Problem\n\nPivoting from this initial idea, I found inspiration in a classic data science scenario from School.ai: predicting credit scores based on income. This was the perfect opportunity to tackle a common, real-world problem—messy data.\n\n### Creating the Chaos: A Flawed Dataset is Born\n\nTo simulate a realistic scenario, I built a synthetic dataset where FICO scores and annual incomes were correlated. Then, I intentionally introduced chaos:\n*   **5%** of the FICO scores vanished.\n*   A significant **20%** of the annual income data was wiped out.\n\nWith my flawed dataset in hand, I used `pandas` to manage the data and `altair` to visualize it, creating a scatter plot that immediately showed the gaps and the general trend.\n\n### The Heart of the Project: Bringing Order to Chaos\n\nNow came the real challenge: how to intelligently fill in the missing values? I decided on a two-pronged approach using `scikit-learn`:\n\n1.  **Linear Regression for FICO Scores:** Since the FICO score data had fewer gaps, I started there. I built a linear regression model to predict the missing scores based on the corresponding annual income. This was the "easy" fill.\n2.  **KNN for Annual Income:** With the FICO scores now more complete, I could tackle the larger problem of the missing income data. I used a K-Nearest Neighbors (KNN) regressor, which cleverly uses the "neighborhood" of similar data points (based on FICO score) to predict a missing income value.\n\nOf course, no data cleansing task is complete without handling the truly unsalavageable. For records where *both* FICO score and income were missing, I added a "Clean" button to simply remove them.\n\nThe final orchestrated workflow was a three-step dance: **Clean -> Predict FICO -> Predict Income**. This project is the result of that journey, transforming a messy, incomplete dataset into a clean, reliable one.',
+    reflection: 'Future improvements could include adding more prediction models, allowing users to upload their own datasets, and deploying the application to a cloud platform.',
+    evidenceSections: [
+      {
+        imageSrc: '/Initial_Steps_buttons.png',
+        text: 'The page first opens with a grid of data. The data consists for 5% missing Fico Scores snd 20% missing annual income. It then displays the graph with the data which often co-related to higher incom = higher fico scores. The data is randomly generated based on that assumption. Below the Graph we see the 3 steps of data creating reliable data. The buttons are in random order but follow a sequence of Delete bad data, populate easy data then populate the more challenging data based on the easy data. Lets discuss the steps below',
+      },
+      {
+        imageSrc: '/Second_Steps_buttons.png',
+        text: 'On clicking Predict Fico scores twice the missing data is populated using regression under the assumption that annual income co-relates to Fico score. The Completely missing data is automatically cleansed.',
+      },
+      {
+        imageSrc: '/Final_Display_page.png',
+        text: 'Next we run the KNN algorithm to group smaller neighbours to populate the Annual Income since 20% is a lot of data to fill.',
+      },
+      {
+        imageSrc: '/Final_Prediction_table.png',
+        text: 'The table below is an example of the final display after performing all data cleaning and prediction steps, ensuring a complete dataset for further analysis.',
+      },
+      {
+        imageSrc: '/Final_Prediction_graph.png',
+        text: 'The final graph, after all cleaning and prediction, displays a comprehensive view of the dataset, highlighting the imputed values (in yellow and green) which integrate seamlessly with the original data, validating the effectiveness of the chosen models.',
+      },
+    ],
   },
 ];
