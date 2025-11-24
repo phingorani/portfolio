@@ -25,7 +25,7 @@ export default function ProjectsPage() {
       </Typography>
       <Grid container spacing={4} sx={{ mt: 4 }}>
         {projects.map((project, index) => (
-          <Grid item xs={12} sm={6} md={4} key={project.slug}>
+          <Grid size={{xs: 12, sm: 6, md: 4}} key={project.slug}>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}

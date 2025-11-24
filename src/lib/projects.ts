@@ -54,10 +54,18 @@ export const projects: Project[] = [
       '#### Reflection\n\n- **Customization for the Audience:** I recognized that raw vector data is abstract, so I tailored the visualization layer to the audience. By rendering high-variance datapoints visually, I made the model\'s behavior intuitive for non-technical stakeholders.\n\n- **Lessons Learned:** I gained significant insight into vectorization and how Neural Networks represent data within their hidden layers.\n\n- **Feedback and Revisions:** Actively seeking feedback, I refined the project presentation. Based on this input, I integrated a 3D interactive chart (included in this artifact) to better illustrate the data clusters.',
     process: 'Upload → Vectorize (DL models) → Store (Postgres + pgvector) → Query/Visualize (3D). Detailed steps in README.',
     reflection: 'Future work: batch processing, more backbones for embeddings, and WebGL-based interactive filtering.',
-    evidenceText: 'The "Demo Screenshot" illustrates the interactive 3D visualization of this vectorized data, where the vector points are plotted to highlight the three dimensions with the highest variance, providing intuitive insights into the dataset\'s underlying structure and relationships. A Flask API orchestrates image uploads, vectorization, and data querying, complemented by a Watchdog-based file system monitor for automated processing of new image inputs. This system transforms raw image data into an analyzable and searchable format, demonstrating a full pipeline from ingestion to insightful visualization.\n\n![Demo Screenshot](/image_vectroizer_demo.png)\n\n![Postgres Screenshot](/image_vectorizer_postgres.png)',
-      evidenceImages: [
-      { src: '/image_vectroizer_demo.png', alt: 'Image Vectorizer Demo 3D visualization' },
-      { src: '/image_vectorizer_postgres.png', alt: 'PostgreSQL pgvector screenshot' },
+    evidenceSections: [
+      {
+        text: 'The "Demo Screenshot" illustrates the interactive 3D visualization of this vectorized data, where the vector points are plotted to highlight the three dimensions with the highest variance, providing intuitive insights into the dataset\'s underlying structure and relationships. A Flask API orchestrates image uploads, vectorization, and data querying, complemented by a Watchdog-based file system monitor for automated processing of new image inputs. This system transforms raw image data into an analyzable and searchable format, demonstrating a full pipeline from ingestion to insightful visualization.',
+      },
+      {
+        imageSrc: '/image_vectroizer_demo.png',
+        text: 'Image Vectorizer Demo 3D visualization',
+      },
+      {
+        imageSrc: '/image_vectorizer_postgres.png',
+        text: 'PostgreSQL pgvector screenshot',
+      },
     ],
   },
   {
