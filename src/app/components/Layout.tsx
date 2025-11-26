@@ -85,15 +85,90 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const NavMenuItem = ({
+  open,
+  handleNavClick,
+  icon,
+  text,
+  href,
+  items,
+  itemKey,
+  itemText,
+  itemSecondaryText,
+}: {
+  open: boolean;
+  handleNavClick: (href?: string) => void;
+  icon: React.ReactNode;
+  text: string;
+  href: string;
+  items: any[];
+  itemKey: string;
+  itemText: string;
+  itemSecondaryText?: string;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <ListItem disablePadding sx={{ display: 'block' }}>
+        <ListItemButton
+          onClick={() => handleNavClick(href)}
+          sx={{
+            minHeight: 48,
+            justifyContent: open ? 'initial' : 'center',
+            px: 2.5,
+          }}
+          aria-label={text}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: open ? 3 : 'auto',
+              justifyContent: 'center',
+            }}
+          >
+            {icon}
+          </ListItemIcon>
+          <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+        </ListItemButton>
+        {open && (
+          <IconButton
+            onClick={() => setIsOpen(!isOpen)}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: '50%',
+              transform: 'translateY(-50%)',
+            }}
+          >
+            {isOpen ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
+        )}
+      </ListItem>
+      <Collapse in={isOpen && open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          {items.map((item) => (
+            <ListItem key={item[itemKey]} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton component={Link} href={`${href}/${item[itemKey]}`} sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <ArticleIcon />
+                </ListItemIcon>
+                <ListItemText primary={item[itemText]} secondary={itemSecondaryText ? item[itemSecondaryText] : undefined} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Collapse>
+    </>
+  );
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
   // "open" represents the pinned state (manual toggle via click)
   const [open, setOpen] = useState(false);
   // Hover state temporarily expands the nav when not pinned
   const [hovering, setHovering] = useState(false);
   const hoverTimeoutRef = useRef<number | null>(null);
-  const [projectsOpen, setProjectsOpen] = useState(false);
-  const [experienceOpen, setExperienceOpen] = useState(false);
-  const [educationOpen, setEducationOpen] = useState(false);
   const theme = useTheme();
   const { toggleColorMode } = useColorMode();
   const pathname = usePathname();
@@ -105,9 +180,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   const handleDrawerClose = () => {
     setOpen(false);
-    setProjectsOpen(false);
-    setExperienceOpen(false);
-    setEducationOpen(false);
   };
 
   // Effective open state: pinned open OR currently hovering
@@ -134,16 +206,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
     }, 150);
   };
 
-  const handleNavClick = (action: () => void, href?: string) => {
+  const handleNavClick = (href?: string) => {
     if (!effectiveOpen) {
       // If collapsed, first interaction pins it open
       handleDrawerOpen();
-    } else {
-      if (href) {
-        router.push(href);
-      } else {
-        action();
-      }
+    } else if (href) {
+      // If already open, navigate
+      router.push(href);
     }
   };
 
@@ -157,7 +226,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <List>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton
-            onClick={() => handleNavClick(() => {}, '/about')}
+            onClick={() => handleNavClick('/about')}
             sx={{
               minHeight: 48,
               justifyContent: effectiveOpen ? 'initial' : 'center',
@@ -181,117 +250,38 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <ListItemText primary="About Me" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding sx={{ display: 'block' }}>
-          <ListItemButton
-            onClick={() => handleNavClick(() => setProjectsOpen(!projectsOpen))}
-            sx={{
-              minHeight: 48,
-              justifyContent: effectiveOpen ? 'initial' : 'center',
-              px: 2.5,
-            }}
-            aria-label="Projects"
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: effectiveOpen ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <WorkIcon />
-            </ListItemIcon>
-            <ListItemText primary="Projects" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
-            {effectiveOpen && (projectsOpen ? <ExpandLess /> : <ExpandMore />)}
-          </ListItemButton>
-        </ListItem>
-        <Collapse in={projectsOpen && effectiveOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {projects.map((project) => (
-              <ListItem key={project.slug} disablePadding sx={{ display: 'block' }}>
-                <ListItemButton component={Link} href={`/projects/${project.slug}`} sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ArticleIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={project.title} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Collapse>
-        <ListItem disablePadding sx={{ display: 'block' }}>
-          <ListItemButton
-            onClick={() => handleNavClick(() => setExperienceOpen(!experienceOpen))}
-            sx={{
-              minHeight: 48,
-              justifyContent: effectiveOpen ? 'initial' : 'center',
-              px: 2.5,
-            }}
-            aria-label="Experience"
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: effectiveOpen ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <BusinessIcon />
-            </ListItemIcon>
-            <ListItemText primary="Experience" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
-            {effectiveOpen && (experienceOpen ? <ExpandLess /> : <ExpandMore />)}
-          </ListItemButton>
-        </ListItem>
-        <Collapse in={experienceOpen && effectiveOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {experiences.map((experience) => (
-              <ListItem key={experience.slug} disablePadding sx={{ display: 'block' }}>
-                <ListItemButton component={Link} href={`/experience/${experience.slug}`} sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ArticleIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={experience.company} secondary={experience.date} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Collapse>
-        <ListItem disablePadding sx={{ display: 'block' }}>
-          <ListItemButton
-            onClick={() => handleNavClick(() => setEducationOpen(!educationOpen))}
-            sx={{
-              minHeight: 48,
-              justifyContent: effectiveOpen ? 'initial' : 'center',
-              px: 2.5,
-            }}
-            aria-label="Education"
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: effectiveOpen ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <SchoolIcon />
-            </ListItemIcon>
-            <ListItemText primary="Education" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
-            {effectiveOpen && (educationOpen ? <ExpandLess /> : <ExpandMore />)}
-          </ListItemButton>
-        </ListItem>
-        <Collapse in={educationOpen && effectiveOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {educations.map((education) => (
-              <ListItem key={education.slug} disablePadding sx={{ display: 'block' }}>
-                <ListItemButton component={Link} href={`/education/${education.slug}`} sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ArticleIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={education.university} secondary={education.date} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Collapse>
+        <NavMenuItem
+          open={effectiveOpen}
+          handleNavClick={handleNavClick}
+          icon={<WorkIcon />}
+          text="Projects"
+          href="/projects"
+          items={projects}
+          itemKey="slug"
+          itemText="title"
+        />
+        <NavMenuItem
+          open={effectiveOpen}
+          handleNavClick={handleNavClick}
+          icon={<BusinessIcon />}
+          text="Experience"
+          href="/experience"
+          items={experiences}
+          itemKey="slug"
+          itemText="company"
+          itemSecondaryText="date"
+        />
+        <NavMenuItem
+          open={effectiveOpen}
+          handleNavClick={handleNavClick}
+          icon={<SchoolIcon />}
+          text="Education"
+          href="/education"
+          items={educations}
+          itemKey="slug"
+          itemText="university"
+          itemSecondaryText="date"
+        />
       </List>
     </div>
   );
