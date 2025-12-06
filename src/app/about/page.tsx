@@ -8,11 +8,13 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { SkillsSection } from './components/SkillsSection';
+import { ContactForm } from './components/ContactForm';
 
 interface NationalPark {
   name: string;
   url: string;
 }
+
 
 const nationalParks: NationalPark[] = [
   { name: 'Acadia', url: 'https://www.nps.gov/acad/index.htm' },
@@ -115,6 +117,7 @@ export default function AboutPage() {
           <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
             <ContactMailIcon sx={{ mr: 1 }} /> Contact
           </Typography>
+          <ContactForm />
           <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 2 }}>
             <IconButton
               aria-label="Email"

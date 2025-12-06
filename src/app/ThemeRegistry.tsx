@@ -5,7 +5,7 @@ import { CacheProvider } from '@emotion/react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from './theme';
-import React, { createContext, useContext, useMemo, useState } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -16,10 +16,36 @@ export function useColorMode() {
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<'light' | 'dark'>('dark');
 
+  useEffect(() => {
+    try {
+      const storedTheme = window.localStorage.getItem('theme') as 'light' | 'dark' | null;
+      const prefersDarkMode = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+
+      if (storedTheme) {
+        setMode(storedTheme);
+      } else if (prefersDarkMode) {
+        setMode('dark');
+      } else {
+        setMode('light');
+      }
+    } catch (e) {
+      // localStorage is not available
+      setMode('dark');
+    }
+  }, []);
+
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode((prevMode) => {
+          const newMode = prevMode === 'light' ? 'dark' : 'light';
+          try {
+            window.localStorage.setItem('theme', newMode);
+          } catch (e) {
+            // localStorage is not available
+          }
+          return newMode;
+        });
       },
     }),
     [],

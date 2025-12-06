@@ -282,6 +282,28 @@ export function Layout({ children }: { children: React.ReactNode }) {
           itemText="university"
           itemSecondaryText="date"
         />
+        <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+                onClick={() => handleNavClick('/blog')}
+                sx={{
+                    minHeight: 48,
+                    justifyContent: effectiveOpen ? 'initial' : 'center',
+                    px: 2.5,
+                }}
+                aria-label="Blog"
+            >
+                <ListItemIcon
+                    sx={{
+                        minWidth: 0,
+                        mr: effectiveOpen ? 3 : 'auto',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <ArticleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Blog" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+            </ListItemButton>
+        </ListItem>
       </List>
     </div>
   );
