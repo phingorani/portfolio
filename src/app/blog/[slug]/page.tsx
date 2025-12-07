@@ -14,8 +14,9 @@ export async function generateStaticParams() {
     return paths.map(p => ({ slug: p.params.slug }));
 }
 
-export default function PostPage({ params }: BlogPageProps) {
-  const postData: Post = getPostData(params.slug);
+export default async function PostPage({ params }: BlogPageProps) {
+  const slug = (await params).slug;
+  const postData: Post = getPostData(slug);
 
   if (!postData) {
     return notFound();
@@ -31,7 +32,7 @@ export default function PostPage({ params }: BlogPageProps) {
           {new Date(postData.date).toLocaleDateString()}
         </Typography>
         <Box>
-            <MarkdownMUI markdown={postData.content} />
+            <MarkdownMUI text={postData.content} />
         </Box>
       </article>
     </Container>

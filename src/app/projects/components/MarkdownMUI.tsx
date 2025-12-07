@@ -35,7 +35,7 @@ export function MarkdownMUI({ text }: MarkdownMUIProps) {
     a: ({ ...props }) => <Link {...props} />,
     img: ({ src, ...props }) => {
       if (!src || typeof src !== 'string') return null;
-      // eslint-disable-next-line @next/next/no-img-element
+       
       return (
         <img
           src={src}

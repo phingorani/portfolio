@@ -12,7 +12,7 @@ export function BlogList({ posts }: BlogListProps) {
   return (
     <Grid container spacing={4} sx={{ mt: 4 }}>
       {posts.map((post: Post) => (
-        <Grid item xs={12} key={post.slug}>
+        <Grid size={{ xs: 12 }} key={post.slug}>
           <Card>
             <CardContent>
               <Typography variant="h5" component="h2">

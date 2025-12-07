@@ -1,4 +1,4 @@
-import { Typography, Container, Paper, Chip, Box, Button, List, ListItem, ListItemText } from '@mui/material';
+import { Typography, Container, Paper, Chip, Box, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { projects } from '@/lib/projects';
 import { notFound } from 'next/navigation';
@@ -113,6 +113,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
                     return <MarkdownMUI text={shortText} />;
                   })()}
+                </CollapsibleSection>
+
+                <CollapsibleSection title="Reflection">
+                  {project.reflection ? (
+                    <MarkdownMUI text={project.reflection} />
+                  ) : (
+                    <Typography variant="body1" paragraph>
+                      No reflection available.
+                    </Typography>
+                  )}
                 </CollapsibleSection>
 
                 <CollapsibleSection title="Evidence">
