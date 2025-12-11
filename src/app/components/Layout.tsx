@@ -10,6 +10,9 @@ import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
 import { useColorMode } from '../ThemeRegistry';
 import Link from 'next/link';
+import { Project } from '@/lib/projects'; // Import Project type
+import { Experience } from '@/lib/experience'; // Import Experience type
+import { Education } from '@/lib/education'; // Import Education type
 import { projects } from '@/lib/projects';
 import { experiences } from '@/lib/experience';
 import { educations } from '@/lib/education';
@@ -85,7 +88,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const NavMenuItem = ({
+// Generic NavMenuItem component
+const NavMenuItem = <T extends { slug: string; title?: string; company?: string; university?: string }>({
   open,
   handleNavClick,
   icon,
@@ -101,10 +105,10 @@ const NavMenuItem = ({
   icon: React.ReactNode;
   text: string;
   href: string;
-  items: any[];
-  itemKey: string;
-  itemText: string;
-  itemSecondaryText?: string;
+  items: T[];
+  itemKey: keyof T;
+  itemText: keyof T;
+  itemSecondaryText?: keyof T;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -148,12 +152,15 @@ const NavMenuItem = ({
       <Collapse in={isOpen && open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {items.map((item) => (
-            <ListItem key={item[itemKey]} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton component={Link} href={`${href}/${item[itemKey]}`} sx={{ pl: 4 }}>
+            <ListItem key={item[itemKey] as string} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton component={Link} href={`${href}/${item.slug}`} sx={{ pl: 4 }}>
                 <ListItemIcon>
                   <ArticleIcon />
                 </ListItemIcon>
-                <ListItemText primary={item[itemText]} secondary={itemSecondaryText ? item[itemSecondaryText] : undefined} />
+                <ListItemText
+                  primary={item[itemText] as string}
+                  secondary={itemSecondaryText ? (item[itemSecondaryText] as string) : undefined}
+                />
               </ListItemButton>
             </ListItem>
           ))}
@@ -250,7 +257,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <ListItemText primary="About Me" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
           </ListItemButton>
         </ListItem>
-        <NavMenuItem
+        <NavMenuItem<Project>
           open={effectiveOpen}
           handleNavClick={handleNavClick}
           icon={<WorkIcon />}
@@ -260,7 +267,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           itemKey="slug"
           itemText="title"
         />
-        <NavMenuItem
+        <NavMenuItem<Experience>
           open={effectiveOpen}
           handleNavClick={handleNavClick}
           icon={<BusinessIcon />}
@@ -271,7 +278,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           itemText="company"
           itemSecondaryText="date"
         />
-        <NavMenuItem
+        <NavMenuItem<Education>
           open={effectiveOpen}
           handleNavClick={handleNavClick}
           icon={<SchoolIcon />}

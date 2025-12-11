@@ -1,5 +1,5 @@
 'use client';
-
+import Image from 'next/image';
 import { Box, Link, Typography } from '@mui/material';
 import ReactMarkdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -13,7 +13,7 @@ interface MarkdownMUIProps {
 export function MarkdownMUI({ text }: MarkdownMUIProps) {
   const components: Components = {
     p: ({ ...props }) => (
-      <Typography variant="body1" paragraph {...props} sx={{ marginBottom: '1em', textAlign: 'left' }} />
+      <Typography variant="body1" paragraph {...props} sx={{ textAlign: 'left' }} />
     ),
     h1: ({ ...props }) => <Typography variant="h4" gutterBottom {...props} sx={{ textAlign: 'left' }} />,
     h2: ({ ...props }) => <Typography variant="h5" gutterBottom {...props} sx={{ textAlign: 'left' }} />,
@@ -35,13 +35,15 @@ export function MarkdownMUI({ text }: MarkdownMUIProps) {
     a: ({ ...props }) => <Link {...props} />,
     img: ({ src, ...props }) => {
       if (!src || typeof src !== 'string') return null;
-       
+      const { width, height, ...rest } = props;
       return (
-        <img
+        <Image
           src={src}
           alt={props.alt || ''}
+          width={500}
+          height={500}
           style={{ maxWidth: '100%', height: 'auto', borderRadius: 8, border: '1px solid #ddd', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', marginBottom: '1em' }}
-          {...props}
+          {...rest}
         />
       );
     },

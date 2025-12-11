@@ -171,7 +171,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'prediction-algorithm',
-    title: 'Interactive Data Cleaning & Prediction Web App',
+    title: 'Artifact 4 Interactive Data Cleaning & Prediction Web App',
     description: 'This project is an interactive web application built with Streamlit that demonstrates data cleaning, imputation, and visualization techniques on a synthetic credit score dataset. Users can view the data, visualize it on a scatter plot, and use machine learning models to predict missing values for FICO scores and annual incomes.',
     shortDescription: 'An interactive web application for data cleaning, imputation, and visualization.',
     githubUrl: 'https://github.com/phingorani/prediction-algorithm',

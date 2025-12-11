@@ -6,13 +6,19 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface CollapsibleSectionProps {
   title: string;
-  defaultExpanded?: boolean;
+  expanded: boolean;
+  id: string;
+  onChange: (id: string, isExpanded: boolean) => void;
 }
 
-export function CollapsibleSection({ title, defaultExpanded = false, children }: PropsWithChildren<CollapsibleSectionProps>) {
+export function CollapsibleSection({ title, expanded, id, onChange, children }: PropsWithChildren<CollapsibleSectionProps>) {
+  const handleChange = (event: React.SyntheticEvent, isExpanded: boolean) => {
+    onChange(id, isExpanded);
+  };
+
   return (
-    <Accordion defaultExpanded={defaultExpanded} sx={{ mb: 2 }}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`${title}-content`} id={`${title}-header`}>
+    <Accordion expanded={expanded} onChange={handleChange} sx={{ mb: 2 }}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`${id}-content`} id={id}>
         <Typography variant="h5">{title}</Typography>
       </AccordionSummary>
       <AccordionDetails>

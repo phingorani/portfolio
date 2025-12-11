@@ -6,8 +6,11 @@ const postsDirectory = path.join(process.cwd(), 'src/content/blog');
 
 export interface Post {
     slug: string;
+    title: string;
+    date: string;
+    excerpt: string;
     content: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export function getSortedPostsData(): Post[] {
@@ -27,16 +30,15 @@ export function getSortedPostsData(): Post[] {
     // Combine the data with the id
     return {
       slug,
-      ...matterResult.data,
+      ...(matterResult.data as { title: string; date: string; excerpt: string; [key: string]: unknown }),
       content: matterResult.content,
     };
   });
   // Sort posts by date
-  // @ts-ignore
-  return allPostsData.sort(({ date: a }, { date: b }) => {
-    if (a < b) {
+  return allPostsData.sort((a, b) => {
+    if (a.date < b.date) {
       return 1;
-    } else if (a > b) {
+    } else if (a.date > b.date) {
       return -1;
     } else {
       return 0;
@@ -66,6 +68,6 @@ export function getPostData(slug: string): Post {
   return {
     slug,
     content: matterResult.content,
-    ...matterResult.data,
+    ...(matterResult.data as { title: string; date: string; excerpt: string; [key: string]: unknown }),
   };
 }

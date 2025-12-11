@@ -7,17 +7,6 @@ import { ProjectCardActions } from './components/ProjectCardActions';
 import { ProjectDescription } from './components/ProjectDescription';
 import { motion } from 'framer-motion';
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
-
 const allTags = Array.from(new Set(projects.flatMap((p) => p.techStack?.map((t) => t.name) || [])));
 
 export default function ProjectsPage() {
@@ -54,7 +43,7 @@ export default function ProjectsPage() {
       </Box>
 
       <Grid container spacing={4} sx={{ mt: 4 }}>
-        {filteredProjects.map((project, index) => (
+        {filteredProjects.map((project) => (
           <Grid size={{ xs: 12, sm: 6, md: 4 }} key={project.slug}>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
