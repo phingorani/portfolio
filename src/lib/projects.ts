@@ -133,6 +133,13 @@ export const projects: Project[] = [
     shortValueProposition: 'Demonstrates an LLM-powered conversational UI with a lightweight Streamlit deployment.',
     process: 'Design prompts/flows → Implement Streamlit UI → Integrate model via LangChain → Deploy demo → Collect feedback.',
     reflection: 'Improvements: better session memory, tool use, and guardrails for safer outputs.',
+    longValueProposition: 'This project demonstrates my ability to quickly learn and apply new technologies to solve real-world problems. By building a conversational AI with Gemini and LangChain, I explored the practical applications of large language models and gained hands-on experience in building intelligent systems. This project is a testament to my passion for AI and my commitment to building innovative and impactful solutions.',
+    evidenceSections: [
+      {
+        imageSrc: '/chatbot.png',
+        text: 'A screenshot of the chatbot interface, showing a conversation with the AI.',
+      },
+    ],
   },
   {
     slug: 'cleansweeper',
