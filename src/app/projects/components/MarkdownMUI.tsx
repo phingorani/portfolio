@@ -1,6 +1,7 @@
 'use client';
-import Image from 'next/image';
-import { Box, Link, Typography } from '@mui/material';
+import { StyledBlockquote } from '@/app/components/StyledBlockquote';
+import { PreviewableImage } from '@/app/components/PreviewableImage';
+import { Box, Link, Typography, Divider } from '@mui/material';
 import ReactMarkdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -11,49 +12,60 @@ interface MarkdownMUIProps {
 // Client-side Markdown renderer that maps common markdown elements to MUI Typography
 // This avoids passing function-based renderers from Server Components across client boundaries.
 export function MarkdownMUI({ text }: MarkdownMUIProps) {
-  const components: Components = {
-    p: ({ ...props }) => (
-      <Typography variant="body1" paragraph {...props} sx={{ textAlign: 'left' }} />
-    ),
-    h1: ({ ...props }) => <Typography variant="h4" gutterBottom {...props} sx={{ textAlign: 'left' }} />,
-    h2: ({ ...props }) => <Typography variant="h5" gutterBottom {...props} sx={{ textAlign: 'left' }} />,
-    h3: ({ ...props }) => <Typography variant="h6" gutterBottom {...props} sx={{ textAlign: 'left' }} />,
-    // Ensure level-4 headings (e.g., "#### Reflection") render bold and left-aligned
-    h4: ({ ...props }) => (
-      <Typography
-        variant="h6"
-        gutterBottom
-        {...props}
-        sx={{ textAlign: 'left', fontWeight: 'bold' }}
-      />
-    ),
-    li: ({ ...props }) => (
-      <li style={{ marginBottom: '8px' }}>
-        <Typography variant="body1" component="span" {...props} sx={{ textAlign: 'left' }} />
-      </li>
-    ),
-    a: ({ ...props }) => <Link {...props} />,
-    img: ({ src, ...props }) => {
-      if (!src || typeof src !== 'string') return null;
-      const { width, height, ...rest } = props;
-      return (
-        <Image
-          src={src}
-          alt={props.alt || ''}
-          width={500}
-          height={500}
-          style={{ maxWidth: '100%', height: 'auto', borderRadius: 8, border: '1px solid #ddd', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', marginBottom: '1em' }}
-          {...rest}
-        />
-      );
-    },
-  };
+    const components: Components = {
+        p: ({...props}) => (
+            <Typography variant="body1" paragraph {...props} sx={{textAlign: 'left', color: 'text.primary'}}/>
+        ),
+        h1: ({...props}) => <Typography variant="h4" gutterBottom {...props}
+                                        sx={{textAlign: 'left', color: 'text.primary'}}/>,
+        h2: ({...props}) => <Typography variant="h5" gutterBottom {...props}
+                                        sx={{textAlign: 'left', color: 'text.primary'}}/>,
+        h3: ({...props}) => <Typography variant="h6" gutterBottom {...props}
+                                        sx={{textAlign: 'left', color: 'text.primary'}}/>,
+        // Ensure level-4 headings (e.g., "#### Reflection") render bold and left-aligned
+        h4: ({...props}) => (
+            <Typography
+                variant="h6"
+                gutterBottom
+                {...props}
+                sx={{textAlign: 'left', fontWeight: 'bold', color: 'text.primary'}}
+            />
+        ),
+        li: ({...props}) => (
+            <li style={{marginBottom: '8px'}}>
+                <Typography variant="body1" component="span" {...props}
+                            sx={{textAlign: 'left', color: 'text.primary'}}/>
+            </li>
+        ),
+        a: ({...props}) => <Link {...props} />,
+        img: ({src, alt}) => {
+            if (!src || typeof src !== 'string') return null;
+            return (
+                <PreviewableImage
+                    src={src}
+                    alt={alt || ''}
+                    width={500}
+                    height={500}
+                    style={{
+                        maxWidth: '100%',
+                        height: 'auto',
+                        borderRadius: 8,
+                        border: '1px solid #ddd',
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                        marginBottom: '1em'
+                    }}
+                />
+            );
+        },
+        blockquote: StyledBlockquote,
+        hr: () => <Divider sx={{my: 4}}/>
+    };
 
-  return (
-    <Box sx={{ textAlign: 'left' }}>
-      <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
-        {text}
-      </ReactMarkdown>
-    </Box>
-  );
+    return (
+        <Box sx={{ textAlign: 'left' }}>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+                {text}
+            </ReactMarkdown>
+        </Box>
+    );
 }

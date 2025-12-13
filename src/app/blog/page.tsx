@@ -1,6 +1,7 @@
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, Box } from '@mui/material';
 import { getSortedPostsData } from '@/lib/posts';
 import { BlogList } from './components/BlogList';
+import { NewsletterSignup } from '../components/NewsletterSignup';
 
 export default function BlogPage() {
   const allPostsData = getSortedPostsData();
@@ -10,7 +11,10 @@ export default function BlogPage() {
       <Typography component="h1" variant="h2" gutterBottom align="center">
         Blog
       </Typography>
-      <BlogList posts={allPostsData} />
+      <Box sx={{ mt: 4 }}>
+        <BlogList posts={allPostsData} />
+        <NewsletterSignup />
+      </Box>
     </Container>
   );
 }

@@ -34,8 +34,21 @@ export function getSortedPostsData(): Post[] {
       content: matterResult.content,
     };
   });
+
+  const staticPosts: Post[] = [
+    {
+      slug: 'ai-innovations-newsletter',
+      title: 'AI in Action: How New Tools Reshaped Industries in November 2025',
+      date: '2025-10-12',
+      excerpt: 'A monthly briefing on how AI tools are moving beyond simple assistance to become powerful, proactive partners in software development, creative design, and customer experience.',
+      content: '',
+    }
+  ];
+
+  const allPosts = [...allPostsData, ...staticPosts];
+
   // Sort posts by date
-  return allPostsData.sort((a, b) => {
+  return allPosts.sort((a, b) => {
     if (a.date < b.date) {
       return 1;
     } else if (a.date > b.date) {

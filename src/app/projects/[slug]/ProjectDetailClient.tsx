@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import { PreviewableImage } from '@/app/components/PreviewableImage';
 import { Typography, Container, Paper, Chip, Box, Button, Stepper, Step, StepButton, StepLabel, StepContent } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { ReadmeAccordion } from '../components/ReadmeAccordion';
@@ -35,7 +35,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                 {project.evidenceSections.map((section, index) => (
                   <Box key={index} sx={{ mb: 2 }}>
                     {section.imageSrc && (
-                      <Image
+                      <PreviewableImage
                         src={section.imageSrc}
                         alt={`Evidence image ${index + 1}`}
                         width={500}
