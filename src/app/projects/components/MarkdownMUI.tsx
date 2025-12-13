@@ -1,5 +1,5 @@
 'use client';
-import { StyledBlockquote } from '@/app/components/StyledBlockquote';
+import { StyledBlockquote } from '../../components/StyledBlockquote';
 import { PreviewableImage } from '@/app/components/PreviewableImage';
 import { Box, Link, Typography, Divider } from '@mui/material';
 import ReactMarkdown, { Components } from 'react-markdown';

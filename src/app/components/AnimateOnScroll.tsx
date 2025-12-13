@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { Box } from '@mui/material';
@@ -23,7 +23,7 @@ export function AnimateOnScroll({ children, delay = 0 }: AnimateOnScrollProps) {
         }
     }, [controls, inView]);
 
-    const variants = {
+    const variants: Variants = {
         hidden: { opacity: 0, y: 30 },
         visible: {
             opacity: 1,
