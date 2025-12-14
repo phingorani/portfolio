@@ -3,7 +3,7 @@ import AiInnovationsNewsletterClient from './components/AiInnovationsNewsletterC
 export default function AiInnovationsNewsletterPage() {
     const post = {
         title: "AI in Action: How New Tools Reshaped Industries in November 2025",
-        date: "2025-12-12",
+        date: "2025-12-10",
     };
 
     const sections = [
