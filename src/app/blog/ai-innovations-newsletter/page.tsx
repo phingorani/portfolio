@@ -11,6 +11,7 @@ import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
 import LinkIcon from '@mui/icons-material/Link';
 import { StyledBlockquote } from '@/app/components/StyledBlockquote';
 import { AnimateOnScroll } from '@/app/components/AnimateOnScroll';
+import { ImageNavigation } from './components/ImageNavigation';
 
 const BlogPostTitle = ({ children }: { children: React.ReactNode }) => (
     <Typography component="h1" variant="h2" gutterBottom align="center" sx={{ fontWeight: 'bold', mb: 2, color: 'text.primary' }}>
@@ -35,14 +36,14 @@ const SectionHeader = ({ icon, children, id }: { icon: React.ReactNode, children
     };
 
     return (
-        <Box 
-            id={id} 
-            sx={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: 2, 
-                mt: 6, 
-                mb: 3, 
+        <Box
+            id={id}
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+                mt: 6,
+                mb: 3,
                 scrollMarginTop: '80px',
                 '& .MuiIconButton-root': { opacity: 0 },
                 '&:hover .MuiIconButton-root': { opacity: 1 },
@@ -112,9 +113,11 @@ export default function AiInnovationsNewsletterPage() {
         date: "2025-12-12",
     };
 
-    const createSlug = (text: string) => {
-        return text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
-    };
+    const sections = [
+        { id: 'software-development', title: 'Software Development', imageUrl: '/BlogImg1.png' },
+        { id: 'creative-design', title: 'Creative & Design', imageUrl: '/BlogImg2.png' },
+        { id: 'customer-experience', title: 'Customer Experience', imageUrl: '/BlogImg3.png' },
+    ];
 
     return (
         <Container component="main" maxWidth="md" sx={{ mt: 8, mb: 8 }}>
@@ -128,16 +131,13 @@ export default function AiInnovationsNewsletterPage() {
                     </AnimateOnScroll>
                 </header>
 
-                <AnimateOnScroll delay={0.2}>
-                    <BodyText>
-                        <strong>Hello Subscribers,</strong>
-                    </BodyText>
-                </AnimateOnScroll>
                 <AnimateOnScroll delay={0.3}>
                     <BodyText>
                         Welcome to your monthly briefing on the ever-evolving world of Artificial Intelligence. This past month has been nothing short of transformative, with AI tools moving beyond simple assistance to become powerful, proactive partners in complex business environments. This edition explores groundbreaking updates in three key sectors: Software Development, Creative & Design, and Customer Experience. Let&#39;s dive in.
                     </BodyText>
                 </AnimateOnScroll>
+
+                <ImageNavigation sections={sections} />
 
                 <AnimateOnScroll delay={0.2}>
                     <StyledDivider />
@@ -267,3 +267,4 @@ export default function AiInnovationsNewsletterPage() {
         </Container>
     );
 }
+
