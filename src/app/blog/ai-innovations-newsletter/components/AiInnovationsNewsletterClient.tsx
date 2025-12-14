@@ -97,10 +97,10 @@ const BulletList = ({ items }: { items: string[] }) => {
             "Future Potential",
         ];
 
-        let highlightedText: (string | JSX.Element)[] = [text];
+        let highlightedText: (string | React.ReactNode)[] = [text];
 
         phrasesToHighlight.forEach(phrase => {
-            const newHighlightedText: (string | JSX.Element)[] = [];
+            const newHighlightedText: (string | React.ReactNode)[] = [];
             highlightedText.forEach((segment, i) => {
                 if (typeof segment === 'string') {
                     const parts = segment.split(new RegExp(`(${phrase}:?)`, 'i'));
