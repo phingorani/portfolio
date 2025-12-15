@@ -28,6 +28,38 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: 'sentiment-analysis',
+    title: 'Artifact 5 Food Sentiment Analysis',
+    description: 'A deep learning model to classify food-related text into positive, neutral, or negative sentiment, built with TensorFlow and Keras.',
+    shortDescription: 'A deep learning model to classify food-related text into positive, neutral, or negative sentiment.',
+    githubUrl: 'https://github.com/phingorani/sentiment-analysis',
+    readmeUrl: 'https://raw.githubusercontent.com/phingorani/sentiment-analysis/develop/README.md',
+    techStack: [
+      { name: 'TensorFlow', url: 'https://www.tensorflow.org' },
+      { name: 'Keras', url: 'https://keras.io' },
+      { name: 'NLTK', url: 'https://www.nltk.org' },
+      { name: 'Pandas', url: 'https://pandas.pydata.org' },
+      { name: 'NumPy', url: 'https://numpy.org' },
+      { name: 'Scikit-learn', url: 'https://scikit-learn.org' },
+    ],
+    objective: 'To build a sentiment analysis model that can accurately classify food-related text and to create an interactive application for real-time predictions.',
+    overview: 'This project implements a food sentiment analysis application using TensorFlow and Keras. It is designed to classify the sentiment of input text about food into positive, neutral, or negative categories. The application includes modules for data preprocessing, model training, and making predictions on new text data.',
+    shortValueProposition: 'This project demonstrates my ability to build and deploy a complete deep learning application, from data preprocessing to model training and interactive prediction.',
+    longValueProposition: 'This project showcases my end-to-end skills in developing a machine learning application. It highlights my ability to handle text data, build and train a neural network, and create an interactive user interface. This project is a testament to my passion for building practical and data-driven solutions.',
+    process: 'The application is run from the command line. It automatically triggers model training if a trained model is not found. Users can then enter sentences about food to get sentiment predictions. The model architecture is a sequential neural network with an embedding layer, an LSTM layer, and a dense output layer. The model is trained on a dataset of food reviews, and the trained model and tokenizer are saved for future use.',
+    reflection: '### The Journey of Building a Food Sentiment Analysis System\n\nThis project was a great opportunity to dive deep into natural language processing and deep learning, specifically tailored for a niche domain: food sentiment. From data collection to model deployment, each phase presented unique challenges and learning experiences.\n\n- **Customization for the Audience:** The application was designed to be user-friendly even for those without a deep technical background, offering a straightforward command-line interface for real-time predictions. This was crucial for demonstrating the immediate value of sentiment analysis.\n\n- **Lessons Learned:** I gained significant experience in handling text data, from cleaning and tokenization to sequence padding. Understanding the trade-offs between different deep learning architectures (e.g., simple feed-forward vs. LSTM) for NLP tasks was a key learning. Also, the process of saving and loading trained models and tokenizers efficiently for prediction was crucial. The project reinforced the importance of domain-specific data for training accurate models.\n\n- **Feedback and Revisions:** Based on initial self-reflection and a desire to ensure robustness, I focused on creating comprehensive documentation (README) to guide users through the training and prediction processes. Future revisions would involve gathering user feedback on prediction accuracy and application usability to refine the model and interface, potentially integrating an active learning component to continuously improve the model with user input.',
+    evidenceSections: [
+      {
+        imageSrc: '/sentiment-analysis-training.png',
+        text: 'The model training process, showing the epochs and accuracy metrics. The model is trained for 100 epochs, and the training and validation accuracy and loss are displayed in the terminal.',
+      },
+      {
+        imageSrc: '/sentiment-analysis-prediction.png',
+        text: 'The interactive prediction interface. Users can enter a sentence, and the model will predict the sentiment (positive, neutral, or negative) and display the prediction probabilities.',
+      },
+    ],
+  },
+  {
     slug: 'image-vectorizer',
     title: 'Artifact 3 Image Vectorizer',
     description: 'This project offers a comprehensive solution for image vectorization and analysis. It efficiently processes images, extracting key features using advanced deep learning models (PyTorch, Transformers). These high-dimensional vectors are then stored in a PostgreSQL database, leveraging the `pgvector` extension for optimized similarity search and retrieval, as depicted in the "Postgres Screenshot" showing vector data storage.',
