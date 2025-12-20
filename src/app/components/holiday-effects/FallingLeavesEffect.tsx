@@ -29,8 +29,13 @@ const FallingLeavesEffect: React.FC = () => {
       color: string;
 
       constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        if (!canvas) {
+          this.x = 0;
+          this.y = 0;
+        } else {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+        }
         this.size = Math.random() * 20 + 10;
         this.speed = Math.random() * 2 + 1;
         this.rotation = Math.random() * 360;
@@ -41,7 +46,7 @@ const FallingLeavesEffect: React.FC = () => {
       update() {
         this.y += this.speed;
         this.rotation += this.rotationSpeed;
-        if (this.y > canvas.height) {
+        if (canvas && this.y > canvas.height) {
           this.y = 0;
           this.x = Math.random() * canvas.width;
         }

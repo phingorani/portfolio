@@ -26,8 +26,13 @@ const HeartsEffect: React.FC = () => {
       alpha: number;
 
       constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        if (!canvas) {
+          this.x = 0;
+          this.y = 0;
+        } else {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+        }
         this.size = Math.random() * 20 + 10;
         this.speed = Math.random() * 2 + 1;
         this.alpha = 1;
@@ -36,7 +41,7 @@ const HeartsEffect: React.FC = () => {
       update() {
         this.y -= this.speed;
         this.alpha -= 0.01;
-        if (this.y < 0 || this.alpha <= 0) {
+        if (canvas && (this.y < 0 || this.alpha <= 0)) {
           this.y = canvas.height;
           this.x = Math.random() * canvas.width;
           this.alpha = 1;
