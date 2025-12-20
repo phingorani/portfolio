@@ -5,6 +5,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { ReadmeAccordion } from '../components/ReadmeAccordion';
 import { ValuePropositionExpandable } from '../components/ValuePropositionExpandable';
 import { MarkdownMUI } from '../components/MarkdownMUI';
+import { ReflectionSection } from '../components/ReflectionSection';
 import { useState } from 'react';
 import { Project } from '@/lib/projects'; // Import Project type
 
@@ -119,7 +120,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
         return <MarkdownMUI text={shortText} />;
       case 6:
         return project.reflection ? (
-          <MarkdownMUI text={project.reflection} />
+          <ReflectionSection text={project.reflection} />
         ) : (
           <Typography variant="body1" paragraph>
             No reflection available.
