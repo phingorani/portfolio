@@ -20,6 +20,8 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import ArticleIcon from '@mui/icons-material/Article';
 import BusinessIcon from '@mui/icons-material/Business';
 import { motion, AnimatePresence } from 'framer-motion';
+import HolidaySwitcher from './HolidaySwitcher';
+import HolidayProvider from './HolidayProvider';
 import { usePathname, useRouter } from 'next/navigation';
 
 const drawerWidth = 340;
@@ -180,6 +182,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { toggleColorMode } = useColorMode();
   const pathname = usePathname();
   const router = useRouter();
+  const [holidayOverride, setHolidayOverride] = useState('auto');
+
+  const handleHolidayChange = (holidayName: string) => {
+    setHolidayOverride(holidayName);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -331,38 +338,42 @@ export function Layout({ children }: { children: React.ReactNode }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Pratik Hingorani
-          </Typography>
-          <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit" aria-label="toggle light and dark mode">
-            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        open={effectiveOpen}
-        PaperProps={{
-          onMouseEnter: handleMouseEnter,
-          onMouseLeave: handleMouseLeave,
-        }}
-      >
-        {drawerContent}
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, backgroundColor: theme.palette.background.default }}>
-        <DrawerHeader />
-        <AnimatePresence>
-          <motion.main
-            key={pathname}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{ backgroundColor: 'transparent' }}
-          >
-            {children}
-          </motion.main>
-        </AnimatePresence>
-      </Box>
-    </Box>
-  );
-}
+          
+                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+                      Pratik Hingorani
+                    </Typography>
+                    <HolidaySwitcher onHolidayChange={handleHolidayChange} />
+                    <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit" aria-label="toggle light and dark mode">
+                      {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                    </IconButton>
+                  </Toolbar>
+                </AppBar>
+                <Drawer
+                  variant="permanent"
+                  open={effectiveOpen}
+                  PaperProps={{
+                    onMouseEnter: handleMouseEnter,
+                    onMouseLeave: handleMouseLeave,
+                  }}
+                >
+                  {drawerContent}
+                </Drawer>
+                <Box component="main" sx={{ flexGrow: 1, p: 3, backgroundColor: theme.palette.background.default }}>
+                  <HolidayProvider override={holidayOverride} />
+                  <DrawerHeader />
+                  <AnimatePresence>
+                    <motion.main
+                      key={pathname}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      style={{ backgroundColor: 'transparent' }}
+                    >
+                      {children}
+                    </motion.main>
+                  </AnimatePresence>
+                </Box>
+              </Box>
+            );
+          }
+          

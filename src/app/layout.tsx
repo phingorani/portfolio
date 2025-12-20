@@ -6,9 +6,11 @@ import "./globals.css";
 import ThemeRegistry from "./ThemeRegistry";
 import { Layout } from "./components/Layout";
 import { Analytics } from "@vercel/analytics/next"
+import HolidayProvider from './components/HolidayProvider';
 
 const inter = Inter({
   variable: "--font-inter",
+
   subsets: ["latin"],
 });
 
@@ -39,6 +41,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}>
+        
+        <HolidayProvider />
+        
         <ThemeRegistry>
           <Layout>{children}</Layout>
         </ThemeRegistry>
