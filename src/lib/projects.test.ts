@@ -7,7 +7,7 @@ describe('projects', () => {
     
     expect(projectNames).toContain('Artifact 5 Food Sentiment Analysis');
     expect(projectNames).toContain('Portfolio Website');
-    expect(projectNames).toContain('AI-Powered Chatbot');
+    expect(projectNames).toContain('Artifact 1 AI-Powered Chatbot');
   });
 
   it('should have at least 7 projects', () => {

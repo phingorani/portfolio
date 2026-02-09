@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { checkRateLimit, cleanupRateLimitCache } from '../app/lib/rate-limit';
 
 describe('rate-limit', () => {
@@ -9,9 +9,11 @@ describe('rate-limit', () => {
     cleanupRateLimitCache(currentTime);
   });
 
-  afterEach(() => {
+  const resetCache = () => {
+    const mockDate = Date.now;
+    currentTime = mockDate();
     cleanupRateLimitCache(currentTime);
-  });
+  };
 
   describe('checkRateLimit', () => {
     it('should allow request when IP is new', () => {
