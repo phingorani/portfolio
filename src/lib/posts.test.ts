@@ -5,16 +5,14 @@ vi.mock('fs', () => ({
   readdirSync: vi.fn(),
 }));
 
-vi.mock('path', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('path')>();
-  return {
-    ...actual,
-    join: vi.fn((...args: string[]) => args.join('/')),
-  };
-});
+vi.mock('path', () => ({
+  default: {
+    join: vi.fn(),
+  },
+  join: vi.fn(),
+}));
 
-const mockFs = vi.mocked(require('fs'));
-const mockPath = vi.mocked(require('path'));
+import { getSortedPostsData, getAllPostSlugs, getPostData, Post } from './posts';
 
 import { getSortedPostsData, getAllPostSlugs, getPostData, Post } from './posts';
 

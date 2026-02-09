@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { checkRateLimit, cleanupRateLimitCache } from '../app/lib/rate-limit';
+import { checkRateLimit, cleanupRateLimitCache } from './rate-limit';
 
 describe('rate-limit', () => {
   let currentTime = Date.now();
