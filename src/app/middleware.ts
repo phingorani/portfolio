@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server';
+import { auth } from '@/lib/auth';
 
 export async function middleware(request: Request) {
+  const session = await auth();
+  
+  const { pathname } = new URL(request.url);
+  
+  if ((pathname.startsWith('/chatbot') || pathname.startsWith('/api/chat')) && !session) {
+    const url = new URL('/auth/signin', request.url);
+    url.searchParams.set('callbackUrl', encodeURIComponent(pathname));
+    return NextResponse.redirect(url);
+  }
+  
   const response = NextResponse.next();
   
   // Add security headers
@@ -19,14 +30,5 @@ export async function middleware(request: Request) {
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes - rate limiting is handled in the API route handlers)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
+  matcher: ['/chatbot', '/api/chat'],
 };
