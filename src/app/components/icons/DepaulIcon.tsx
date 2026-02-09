@@ -5,8 +5,9 @@ export function DepaulIcon() {
     <Image
       src="/depaul.png"
       alt="DePaul University Logo"
-      width={24} // Adjust width and height as needed
+      width={24}
       height={24}
+      loading="lazy"
     />
   );
 }

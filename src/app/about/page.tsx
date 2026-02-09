@@ -7,6 +7,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Image from 'next/image';
 import { SkillsSection } from './components/SkillsSection';
 import { ContactForm } from './components/ContactForm';
 
@@ -40,11 +41,14 @@ export default function AboutPage() {
           alignItems: 'center'
         }}
       >
-        <Avatar
-          alt="Pratik Hingorani"
-          src="/img.png"
-          sx={{ width: 150, height: 150, mb: 2 }}
-        />
+         <Image
+           alt="Pratik Hingorani"
+           src="/img.png"
+           width={150}
+           height={150}
+           priority
+           style={{ borderRadius: '50%', marginBottom: '1rem' }}
+         />
         <Typography component="h1" variant="h2" gutterBottom>
           Pratik Hingorani
         </Typography>

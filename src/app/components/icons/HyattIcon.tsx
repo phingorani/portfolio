@@ -12,6 +12,7 @@ export function HyattIcon({ width = 24, height = 24 }: IconProps) {
       alt="Hyatt Logo"
       width={width}
       height={height}
+      loading="lazy"
     />
   );
 }

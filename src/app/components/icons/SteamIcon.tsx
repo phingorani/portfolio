@@ -14,6 +14,7 @@ export function SteamIcon({ width = 24, height = 24, className }: SteamIconProps
       width={width}
       height={height}
       className={className}
+      loading="lazy"
     />
   );
 }

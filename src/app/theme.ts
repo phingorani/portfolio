@@ -17,16 +17,14 @@ const getTheme = (mode: PaletteMode) => createTheme({
       : {
           // palette values for dark mode
           primary: orange,
-          divider: grey[800],
+          divider: 'rgba(255, 255, 255, 0.12)',
           background: {
-            default: grey[900],
-            // Make panels (Paper/Card/Accordion) lighter in dark mode for better contrast and airier feel
-            // Previously '#1E1E1E' which was darker than the page background; use a lighter grey instead.
-            paper: grey[800],
+            default: 'transparent', // Let the global gradient show through
+            paper: 'rgba(30, 30, 30, 0.7)', // Semi-transparent
           },
           text: {
             primary: '#fff',
-            secondary: grey[500],
+            secondary: 'rgba(255, 255, 255, 0.7)',
           },
         }),
   },
@@ -54,17 +52,53 @@ const getTheme = (mode: PaletteMode) => createTheme({
   components: {
     MuiPaper: {
       styleOverrides: {
-        root: {
-          borderRadius: 12,
-          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-        },
+        root: ({ theme }) => ({
+          borderRadius: 16, // More rounded modern look
+          boxShadow: theme.palette.mode === 'dark' 
+            ? '0 8px 32px 0 rgba(0, 0, 0, 0.37)' 
+            : '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+          backdropFilter: 'blur(12px)',
+          border: theme.palette.mode === 'dark'
+            ? '1px solid rgba(255, 255, 255, 0.08)'
+            : '1px solid rgba(255, 255, 255, 0.4)',
+          backgroundImage: 'none', // Remove default MUI gradient in dark mode
+        }),
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: 12,
+          textTransform: 'none', // Modernize buttons
+          fontWeight: 600,
         },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.mode === 'dark' 
+            ? 'rgba(18, 18, 18, 0.8)' 
+            : 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: theme.palette.mode === 'dark'
+            ? '1px solid rgba(255, 255, 255, 0.08)'
+            : '1px solid rgba(0, 0, 0, 0.05)',
+          boxShadow: 'none',
+        }),
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          backgroundColor: theme.palette.mode === 'dark' 
+            ? 'rgba(18, 18, 18, 0.85)' 
+            : 'rgba(255, 255, 255, 0.85)',
+          backdropFilter: 'blur(20px)',
+          borderRight: theme.palette.mode === 'dark'
+            ? '1px solid rgba(255, 255, 255, 0.08)'
+            : '1px solid rgba(0, 0, 0, 0.05)',
+        }),
       },
     },
   },

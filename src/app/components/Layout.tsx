@@ -10,16 +10,18 @@ import WorkIcon from '@mui/icons-material/Work';
 import SchoolIcon from '@mui/icons-material/School';
 import { useColorMode } from '../ThemeRegistry';
 import Link from 'next/link';
-import { Project } from '@/lib/projects'; // Import Project type
-import { Experience } from '@/lib/experience'; // Import Experience type
-import { Education } from '@/lib/education'; // Import Education type
+import { Project } from '@/lib/projects';
+import { Experience } from '@/lib/experience';
+import { Education } from '@/lib/education';
 import { projects } from '@/lib/projects';
 import { experiences } from '@/lib/experience';
 import { educations } from '@/lib/education';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import ArticleIcon from '@mui/icons-material/Article';
 import BusinessIcon from '@mui/icons-material/Business';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import HolidaySwitcher from './HolidaySwitcher';
 import HolidayProvider from './HolidayProvider';
 import { usePathname, useRouter } from 'next/navigation';
@@ -255,10 +257,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 justifyContent: 'center',
               }}
             >
-              <Avatar
+              <Image
                 alt="Pratik Hingorani"
                 src="/img.png"
-                sx={{ width: 24, height: 24 }}
+                width={24}
+                height={24}
+                priority
               />
             </ListItemIcon>
             <ListItemText primary="About Me" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
@@ -318,6 +322,28 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <ListItemText primary="Blog" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
             </ListItemButton>
         </ListItem>
+        <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+                onClick={() => handleNavClick('/chatbot')}
+                sx={{
+                    minHeight: 48,
+                    justifyContent: effectiveOpen ? 'initial' : 'center',
+                    px: 2.5,
+                }}
+                aria-label="AI Chat"
+            >
+                <ListItemIcon
+                    sx={{
+                        minWidth: 0,
+                        mr: effectiveOpen ? 3 : 'auto',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <SmartToyIcon />
+                </ListItemIcon>
+                <ListItemText primary="AI Chat" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+            </ListItemButton>
+        </ListItem>
       </List>
     </div>
   );
@@ -358,7 +384,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 >
                   {drawerContent}
                 </Drawer>
-                <Box component="main" sx={{ flexGrow: 1, p: 3, backgroundColor: theme.palette.background.default }}>
+                <Box component="main" sx={{ flexGrow: 1, p: 3, backgroundColor: 'transparent' }}>
                   <HolidayProvider override={holidayOverride} />
                   <DrawerHeader />
                   <AnimatePresence>

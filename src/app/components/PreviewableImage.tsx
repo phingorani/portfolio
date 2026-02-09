@@ -34,6 +34,7 @@ export function PreviewableImage({ src, alt, width = 800, height = 600, style }:
           width={width}
           height={height}
           style={style}
+          loading="lazy"
         />
       </Box>
 

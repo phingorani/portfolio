@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: portfolio-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DGX_API_URL=${DGX_API_URL}
+      - VLLM_MODEL_NAME=${VLLM_MODEL_NAME}
+      - DGX_API_KEY=${DGX_API_KEY}
+    restart: unless-stopped

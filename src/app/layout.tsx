@@ -27,10 +27,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Pratik Hingorani - Portfolio",
   description: "A portfolio for a full stack software engineer.",
-  robots: {
-    index: false,
-    follow: false,
-  },
 };
 
 export default function RootLayout({

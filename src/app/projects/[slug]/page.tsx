@@ -12,14 +12,11 @@ interface ProjectPageProps {
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  console.log('ProjectPage: Received slug:', slug); // Re-add debug log
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
-    console.log(`ProjectPage: Project not found for slug: ${slug}`); // Re-add debug log
     notFound();
   }
-  console.log('ProjectPage: Found project:', project.title); // Re-add debug log
 
   return <ProjectDetailClient project={project} />;
 }

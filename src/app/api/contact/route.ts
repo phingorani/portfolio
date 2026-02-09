@@ -1,11 +1,25 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { checkRateLimit } from '@/app/lib/rate-limit';
 
 export async function POST(request: Request) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '127.0.0.1';
+  const { allowed, remaining } = checkRateLimit(ip);
+
+  if (!allowed) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded. Please try again later.' },
+      { status: 429, headers: { 'X-RateLimit-Remaining': '0' } }
+    );
+  }
+
   const { name, email, message } = await request.json();
 
   if (!name || !email || !message) {
-    return NextResponse.json({ error: 'Please fill out all fields.' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Please fill out all fields.' },
+      { status: 400, headers: { 'X-RateLimit-Remaining': remaining.toString() } }
+    );
   }
 
   // IMPORTANT: Replace with your own email configuration.
@@ -46,9 +60,15 @@ export async function POST(request: Request) {
     await transporter.verify();
     // Send mail
     await transporter.sendMail(mailOptions);
-    return NextResponse.json({ message: 'Message sent successfully!' }, { status: 200 });
-  } catch (error) {
-    console.error('Email sending error:', error);
-    return NextResponse.json({ error: 'There was an error sending your message. Please try again later.' }, { status: 500 });
-  }
-}
+     return NextResponse.json(
+       { message: 'Message sent successfully!' },
+       { status: 200, headers: { 'X-RateLimit-Remaining': remaining.toString() } }
+     );
+   } catch (error) {
+     console.error('Email sending error:', error);
+     return NextResponse.json(
+       { error: 'There was an error sending your message. Please try again later.' },
+       { status: 500, headers: { 'X-RateLimit-Remaining': remaining.toString() } }
+     );
+   }
+ }

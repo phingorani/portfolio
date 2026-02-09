@@ -14,21 +14,14 @@ const holidayEffects: { [key: string]: React.FC } = {
   Thanksgiving: FallingLeavesEffect,
 };
 
-const getNextHoliday = (currentDate: Date): Holiday | null => {
-  const currentYear = currentDate.getFullYear();
+const isHolidayToday = (currentDate: Date): Holiday | null => {
+  const currentMonth = currentDate.getMonth();
+  const currentDay = currentDate.getDate();
 
-  const upcomingHolidays = holidays
-    .map(holiday => {
-      const holidayDate = new Date(holiday.date);
-      holidayDate.setFullYear(currentYear);
-      if (holidayDate < currentDate) {
-        holidayDate.setFullYear(currentYear + 1);
-      }
-      return { ...holiday, date: holidayDate };
-    })
-    .sort((a, b) => a.date.getTime() - b.date.getTime());
-
-  return upcomingHolidays[0] || null;
+  return holidays.find(holiday => {
+    const holidayDate = new Date(holiday.date);
+    return holidayDate.getMonth() === currentMonth && holidayDate.getDate() === currentDay;
+  }) || null;
 };
 
 interface HolidayProviderProps {
@@ -44,8 +37,8 @@ const HolidayProvider: React.FC<HolidayProviderProps> = ({ override }) => {
       setHoliday(selectedHoliday || null);
     } else {
       const today = new Date();
-      const nextHoliday = getNextHoliday(today);
-      setHoliday(nextHoliday);
+      const currentHoliday = isHolidayToday(today);
+      setHoliday(currentHoliday);
     }
   }, [override]);
 

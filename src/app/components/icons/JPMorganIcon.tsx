@@ -12,6 +12,7 @@ export function JPMorganIcon({ width = 40, height = 40 }: IconProps) {
           alt="JPMorgan Logo"
           width={width}
           height={height}
+          loading="lazy"
       />
   );
 }
