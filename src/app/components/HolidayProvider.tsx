@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { holidays, Holiday } from '@/lib/holidays';
 import SnowEffect from './holiday-effects/SnowEffect';
 import FireworksEffect from './holiday-effects/FireworksEffect';
@@ -24,29 +24,15 @@ const isHolidayToday = (currentDate: Date): Holiday | null => {
   }) || null;
 };
 
-interface HolidayProviderProps {
-  override?: string;
-}
+const HolidayProvider: React.FC = () => {
+  const today = new Date();
+  const currentHoliday = isHolidayToday(today);
 
-const HolidayProvider: React.FC<HolidayProviderProps> = ({ override }) => {
-  const [holiday, setHoliday] = useState<Holiday | null>(null);
-
-  useEffect(() => {
-    if (override && override !== 'auto') {
-      const selectedHoliday = holidays.find(h => h.name === override);
-      setHoliday(selectedHoliday || null);
-    } else {
-      const today = new Date();
-      const currentHoliday = isHolidayToday(today);
-      setHoliday(currentHoliday);
-    }
-  }, [override]);
-
-  if (!holiday) {
+  if (!currentHoliday) {
     return null;
   }
 
-  const HolidayEffect = holidayEffects[holiday.name];
+  const HolidayEffect = holidayEffects[currentHoliday.name];
 
   return HolidayEffect ? <HolidayEffect /> : null;
 };
