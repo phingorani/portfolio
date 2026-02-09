@@ -7,7 +7,8 @@ import { ValuePropositionExpandable } from '../components/ValuePropositionExpand
 import { MarkdownMUI } from '../components/MarkdownMUI';
 import { ReflectionSection } from '../components/ReflectionSection';
 import { useState } from 'react';
-import { Project } from '@/lib/projects'; // Import Project type
+import { Project } from '@/lib/projects';
+import { useSession } from 'next-auth/react'; // Import Project type
 
 interface ProjectDetailClientProps {
   project: Project;
@@ -15,6 +16,7 @@ interface ProjectDetailClientProps {
 
 export default function ProjectDetailClient({ project }: ProjectDetailClientProps) {
   const [activeStep, setActiveStep] = useState(0);
+  const { data: session } = useSession();
 
   const sections = [
     { title: 'Showcase', id: 'evidence' },
@@ -171,19 +173,19 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             >
               View on <GitHubIcon sx={{ ml: 1 }} />
             </Button>
-            {project.demoUrl && ( // Add this block for demoUrl
-              <Button
-                variant="contained"
-                color="secondary"
-                component="a"
-                href={project.demoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`View a demo of ${project.title}`}
-              >
-                View Demo
-              </Button>
-            )}
+             {project.demoUrl && ( // Add this block for demoUrl
+               <Button
+                 variant="contained"
+                 color="secondary"
+                 component="a"
+                 href={session ? project.demoUrl : `/auth/signin?callbackUrl=${encodeURIComponent(project.demoUrl)}`}
+                 target="_blank"
+                 rel={session ? "noopener noreferrer" : undefined}
+                 aria-label={`View a demo of ${project.title}`}
+               >
+                 {session ? 'View Demo' : 'Sign in to View Demo'}
+               </Button>
+             )}
           </Box>
         </Box>
       </Paper>
