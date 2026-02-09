@@ -1,21 +1,22 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { checkRateLimit, cleanupRateLimitCache } from '../app/lib/rate-limit';
 
 describe('rate-limit', () => {
+  let currentTime = Date.now();
+  
   beforeEach(() => {
-    vi.useFakeTimers();
-    cleanupRateLimitCache();
+    currentTime = Date.now();
+    cleanupRateLimitCache(currentTime);
   });
 
   afterEach(() => {
-    cleanupRateLimitCache();
-    vi.useRealTimers();
+    cleanupRateLimitCache(currentTime);
   });
 
   describe('checkRateLimit', () => {
     it('should allow request when IP is new', () => {
       const ip = '192.168.1.1';
-      const result = checkRateLimit(ip);
+      const result = checkRateLimit(ip, currentTime);
       
       expect(result.allowed).toBe(true);
       expect(result.remaining).toBe(9);
@@ -25,7 +26,7 @@ describe('rate-limit', () => {
       const ip = '192.168.1.2';
       
       for (let i = 0; i < 10; i++) {
-        const result = checkRateLimit(ip);
+        const result = checkRateLimit(ip, currentTime);
         expect(result.allowed).toBe(true);
         expect(result.remaining).toBe(9 - i);
       }
@@ -35,10 +36,10 @@ describe('rate-limit', () => {
       const ip = '192.168.1.3';
       
       for (let i = 0; i < 10; i++) {
-        checkRateLimit(ip);
+        checkRateLimit(ip, currentTime);
       }
       
-      const result = checkRateLimit(ip);
+      const result = checkRateLimit(ip, currentTime);
       expect(result.allowed).toBe(false);
       expect(result.remaining).toBe(0);
     });
@@ -47,14 +48,14 @@ describe('rate-limit', () => {
       const ip = '192.168.1.4';
       
       for (let i = 0; i < 10; i++) {
-        checkRateLimit(ip);
+        checkRateLimit(ip, currentTime);
       }
       
-      expect(checkRateLimit(ip).allowed).toBe(false);
+      expect(checkRateLimit(ip, currentTime).allowed).toBe(false);
       
-      vi.advanceTimersByTime(60000);
+      currentTime += 60000;
       
-      const result = checkRateLimit(ip);
+      const result = checkRateLimit(ip, currentTime);
       expect(result.allowed).toBe(true);
       expect(result.remaining).toBe(9);
     });
@@ -64,11 +65,11 @@ describe('rate-limit', () => {
       const ip2 = '192.168.1.6';
       
       for (let i = 0; i < 10; i++) {
-        checkRateLimit(ip1);
+        checkRateLimit(ip1, currentTime);
       }
       
-      const result1 = checkRateLimit(ip1);
-      const result2 = checkRateLimit(ip2);
+      const result1 = checkRateLimit(ip1, currentTime);
+      const result2 = checkRateLimit(ip2, currentTime);
       
       expect(result1.allowed).toBe(false);
       expect(result2.allowed).toBe(true);
@@ -78,12 +79,12 @@ describe('rate-limit', () => {
   describe('cleanupRateLimitCache', () => {
     it('should remove expired entries', () => {
       const ip = '192.168.1.7';
-      checkRateLimit(ip);
+      checkRateLimit(ip, currentTime);
       
-      vi.advanceTimersByTime(60000);
-      cleanupRateLimitCache();
+      currentTime += 60000;
+      cleanupRateLimitCache(currentTime);
       
-      const result = checkRateLimit(ip);
+      const result = checkRateLimit(ip, currentTime);
       expect(result.allowed).toBe(true);
       expect(result.remaining).toBe(9);
     });

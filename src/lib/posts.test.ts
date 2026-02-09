@@ -5,9 +5,13 @@ vi.mock('fs', () => ({
   readdirSync: vi.fn(),
 }));
 
-vi.mock('path', () => ({
-  join: vi.fn((...args) => args.join('/')),
-}));
+vi.mock('path', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('path')>();
+  return {
+    ...actual,
+    join: vi.fn((...args: string[]) => args.join('/')),
+  };
+});
 
 const mockFs = vi.mocked(require('fs'));
 const mockPath = vi.mocked(require('path'));
@@ -25,7 +29,6 @@ describe('posts', () => {
       mockFs.readFileSync.mockReturnValue(
         '---\ntitle: Test\ndate: 2024-01-15\nexcerpt: Excerpt\n---\nContent'
       );
-      mockPath.join.mockImplementation((...args) => args.join('/'));
 
       const posts = getSortedPostsData();
 
@@ -35,7 +38,6 @@ describe('posts', () => {
     it('should include static posts', () => {
       mockFs.readdirSync.mockReturnValue([]);
       mockFs.readFileSync.mockReturnValue('');
-      mockPath.join.mockImplementation((...args) => args.join('/'));
 
       const posts = getSortedPostsData();
 
@@ -47,7 +49,6 @@ describe('posts', () => {
   describe('getAllPostSlugs', () => {
     it('should return slugs from file names', () => {
       mockFs.readdirSync.mockReturnValue(['test-post.md', 'another-post.md']);
-      mockPath.join.mockImplementation((...args) => args.join('/'));
 
       const slugs = getAllPostSlugs();
 
@@ -59,9 +60,8 @@ describe('posts', () => {
   describe('getPostData', () => {
     it('should return post data for a given slug', () => {
       const mockContent = '---\ntitle: Test Post\ndate: 2024-01-15\nexcerpt: Test Excerpt\n---\n# Content';
-      
+
       mockFs.readFileSync.mockReturnValue(mockContent);
-      mockPath.join.mockImplementation((...args) => args.join('/'));
 
       const postData = getPostData('test-post');
 
