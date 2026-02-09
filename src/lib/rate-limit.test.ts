@@ -1,12 +1,16 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { checkRateLimit, cleanupRateLimitCache } from './rate-limit';
+import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import { checkRateLimit, cleanupRateLimitCache, requestCache } from './rate-limit';
 
 describe('rate-limit', () => {
   let currentTime = Date.now();
   
   beforeEach(() => {
     currentTime = Date.now();
-    cleanupRateLimitCache(currentTime);
+    requestCache.clear();
+  });
+
+  afterEach(() => {
+    requestCache.clear();
   });
 
   const resetCache = () => {

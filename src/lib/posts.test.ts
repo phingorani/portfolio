@@ -1,25 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-vi.mock('fs', () => ({
-  readFileSync: vi.fn(),
-  readdirSync: vi.fn(),
-}));
-
-vi.mock('path', () => ({
-  default: {
-    join: vi.fn(),
-  },
-  join: vi.fn(),
-}));
-
 import { getSortedPostsData, getAllPostSlugs, getPostData, Post } from './posts';
-
-import { getSortedPostsData, getAllPostSlugs, getPostData, Post } from './posts';
-
-describe('posts', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
 
   describe('getSortedPostsData', () => {
     it('should return posts sorted by date (newest first)', () => {
