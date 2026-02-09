@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 vi.mock('fs', () => ({
   readFileSync: vi.fn(),
@@ -9,8 +9,8 @@ vi.mock('path', () => ({
   join: vi.fn((...args) => args.join('/')),
 }));
 
-const mockFs = vi.mocked(require('fs'), { strict: true });
-const mockPath = vi.mocked(require('path'), { strict: true });
+const mockFs = vi.mocked(require('fs'));
+const mockPath = vi.mocked(require('path'));
 
 import { getSortedPostsData, getAllPostSlugs, getPostData, Post } from './posts';
 

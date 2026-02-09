@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { checkRateLimit, cleanupRateLimitCache } from '../app/lib/rate-limit';
 
 describe('rate-limit', () => {
@@ -8,6 +8,7 @@ describe('rate-limit', () => {
   });
 
   afterEach(() => {
+    cleanupRateLimitCache();
     vi.useRealTimers();
   });
 
@@ -51,7 +52,6 @@ describe('rate-limit', () => {
       
       expect(checkRateLimit(ip).allowed).toBe(false);
       
-      vi.mocked(setTimeout).mockClear();
       vi.advanceTimersByTime(60000);
       
       const result = checkRateLimit(ip);
