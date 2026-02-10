@@ -1,13 +1,13 @@
 {
   "active": true,
-  "iteration": 14,
+  "iteration": 1,
   "minIterations": 1,
   "maxIterations": 0,
   "completionPromise": "COMPLETE",
   "tasksMode": true,
   "taskPromise": "TASK_DONE",
   "prompt": "Phase 1: The Un-Lock (Auth Setup)\n   1. Configure NEXTAUTH_SECRET and Providers in .env.\n   2. Implement src/lib/auth.ts options.\n   3. Create the standard Login UI page/modal.",
-  "startedAt": "2026-02-09T15:12:45.213Z",
+  "startedAt": "2026-02-10T06:36:50.548Z",
   "model": "",
   "agent": "opencode"
 }
