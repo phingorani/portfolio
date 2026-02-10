@@ -1,6 +1,6 @@
 import { createOpenAI } from '@ai-sdk/openai';
 import { streamText } from 'ai';
-import { checkRateLimit } from '@/app/lib/rate-limit';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 const dgxApiKey = process.env.DGX_API_KEY;
 const dgxBaseUrl = process.env.DGX_API_URL;
