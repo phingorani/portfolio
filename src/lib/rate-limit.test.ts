@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { checkRateLimit, cleanupRateLimitCache, requestCache } from './rate-limit';
+import { checkRateLimit, cleanupRateLimitCache, requestCache, WINDOW_MS } from './rate-limit';
 
 describe('rate-limit', () => {
   let currentTime = Date.now();
@@ -12,12 +12,6 @@ describe('rate-limit', () => {
   afterEach(() => {
     requestCache.clear();
   });
-
-  const resetCache = () => {
-    const mockDate = Date.now;
-    currentTime = mockDate();
-    cleanupRateLimitCache(currentTime);
-  };
 
   describe('checkRateLimit', () => {
     it('should allow request when IP is new', () => {
@@ -59,7 +53,7 @@ describe('rate-limit', () => {
       
       expect(checkRateLimit(ip, currentTime).allowed).toBe(false);
       
-      currentTime += 60000;
+      currentTime += WINDOW_MS + 1;
       
       const result = checkRateLimit(ip, currentTime);
       expect(result.allowed).toBe(true);
@@ -87,7 +81,7 @@ describe('rate-limit', () => {
       const ip = '192.168.1.7';
       checkRateLimit(ip, currentTime);
       
-      currentTime += 60000;
+      currentTime += WINDOW_MS + 1;
       cleanupRateLimitCache(currentTime);
       
       const result = checkRateLimit(ip, currentTime);

@@ -4,7 +4,7 @@ interface RequestRecord {
 }
 
 export const requestCache = new Map<string, RequestRecord>();
-const WINDOW_MS = 60_000;
+export const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 10;
 
 export function checkRateLimit(ip: string, currentTime: number = Date.now()): { allowed: boolean; remaining: number } {
