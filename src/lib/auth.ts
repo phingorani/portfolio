@@ -1,38 +1,31 @@
 import NextAuth from 'next-auth'
-import type { NextAuthOptions } from 'next-auth'
-import EmailProvider from 'next-auth/providers/email'
-import GitHubProvider from 'next-auth/providers/github'
+import GitHub from 'next-auth/providers/github'
+import Credentials from 'next-auth/providers/credentials'
 
-declare module 'next-auth' {
-  interface User {
-    id?: string
-  }
-  interface Session {
-    user?: {
-      id?: string
-      name?: string | null
-      email?: string | null
-      image?: string | null
-    }
-  }
-}
-
-export const authOptions: NextAuthOptions = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID || '',
-      clientSecret: process.env.GITHUB_SECRET || '',
+    GitHub({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
     }),
-    EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST || '',
-        port: Number(process.env.EMAIL_SERVER_PORT) || 587,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER || '',
-          pass: process.env.EMAIL_SERVER_PASSWORD || '',
-        },
+    Credentials({
+      name: 'Credentials',
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
       },
-      from: process.env.EMAIL_FROM || 'no-reply@portfolio.com',
+      async authorize(credentials) {
+        const email = credentials?.email as string | undefined
+        const password = credentials?.password as string | undefined
+
+        const demoEmail = process.env.DEMO_USER_EMAIL || 'demo@portfolio.com'
+        const demoPassword = process.env.DEMO_USER_PASSWORD || 'demo1234'
+
+        if (email === demoEmail && password === demoPassword) {
+          return { id: '1', name: 'Demo User', email: demoEmail }
+        }
+        return null
+      },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
@@ -43,18 +36,24 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id
+        token.name = user.name
+        token.email = user.email
       }
       return token
     },
     async session({ session, token }) {
-      if (session.user && token.id) {
+      if (session.user && token) {
         session.user.id = token.id as string
+        session.user.name = token.name as string
+        session.user.email = token.email as string
       }
       return session
     },
   },
-}
-
-export const { handlers, signIn, signOut, useSession } = NextAuth(authOptions)
-
-export const auth = handlers.auth
+  session: {
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
+  },
+  trustHost: true,
+})
