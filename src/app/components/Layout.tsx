@@ -327,28 +327,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </ListItem>
         <ListItem disablePadding sx={{ display: 'block' }}>
             <ListItemButton
-                onClick={() => handleNavClick('/chatbot')}
-                sx={{
-                    minHeight: 48,
-                    justifyContent: effectiveOpen ? 'initial' : 'center',
-                    px: 2.5,
-                }}
-                aria-label="AI Chat"
-            >
-                <ListItemIcon
-                    sx={{
-                        minWidth: 0,
-                        mr: effectiveOpen ? 3 : 'auto',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <SmartToyIcon />
-                </ListItemIcon>
-                <ListItemText primary="AI Chat" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
-            </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
                 component="a"
                 href="https://threatmap.pratikhingorani.com"
                 target="_blank"
