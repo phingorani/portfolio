@@ -16,19 +16,21 @@ export function useColorMode() {
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     try {
       const storedTheme = window.localStorage.getItem('theme') as 'light' | 'dark' | null;
       const prefersDarkMode = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
 
       if (storedTheme) {
-        setMode(storedTheme);
+        localStorage.setItem('theme', storedTheme);
+        setMode(storedTheme as 'light' | 'dark');
       } else if (prefersDarkMode) {
+        localStorage.setItem('theme', 'dark');
         setMode('dark');
       }
     } catch {
       // localStorage is not available, default to light
-      setMode('light');
     }
   }, []);
 
@@ -52,6 +54,11 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
   );
 
   const theme = useMemo(() => getTheme(mode), [mode]);
+
+  // Sync data-theme attribute on <html> so CSS can react to the toggle
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', mode);
+  }, [mode]);
 
   const [{ cache, flush }] = React.useState(() => {
     const cache = createCache({ key: 'mui' });
