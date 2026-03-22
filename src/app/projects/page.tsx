@@ -135,12 +135,13 @@ export default function ProjectsPage() {
                     flexDirection: 'column',
                     position: 'relative',
                     overflow: 'visible',
+                    borderTop: `3px solid ${catColor}`,
                     transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                     '&:hover': {
                       transform: 'translateY(-4px)',
                       boxShadow: isDark
-                        ? '0 12px 40px rgba(0,0,0,0.5)'
-                        : '0 12px 40px rgba(31,38,135,0.15)',
+                        ? `0 12px 40px rgba(${hexToRgb(catColor)}, 0.2)`
+                        : `0 12px 40px rgba(${hexToRgb(catColor)}, 0.15)`,
                     },
                   }}
                 >

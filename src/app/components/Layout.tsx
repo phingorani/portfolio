@@ -23,6 +23,7 @@ import SmartToyIcon from '@mui/icons-material/SmartToy';
 import MapIcon from '@mui/icons-material/Map';
 import TranslateIcon from '@mui/icons-material/Translate';
 import ChatIcon from '@mui/icons-material/Chat';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import HolidaySwitcher from './HolidaySwitcher';
@@ -106,6 +107,7 @@ const NavMenuItem = <T extends { slug: string; title?: string; company?: string;
   itemKey,
   itemText,
   itemSecondaryText,
+  pathname,
 }: {
   open: boolean;
   handleNavClick: (href?: string) => void;
@@ -116,8 +118,10 @@ const NavMenuItem = <T extends { slug: string; title?: string; company?: string;
   itemKey: keyof T;
   itemText: keyof T;
   itemSecondaryText?: keyof T;
+  pathname: string;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const isActive = pathname === href || pathname.startsWith(href + '/');
 
   return (
     <>
@@ -128,6 +132,12 @@ const NavMenuItem = <T extends { slug: string; title?: string; company?: string;
             minHeight: 48,
             justifyContent: open ? 'initial' : 'center',
             px: 2.5,
+            ...(isActive && {
+              backgroundColor: 'rgba(255, 152, 0, 0.08)',
+              borderLeft: '3px solid',
+              borderLeftColor: 'primary.main',
+              '& .MuiListItemIcon-root': { color: 'primary.main' },
+            }),
           }}
           aria-label={text}
         >
@@ -250,6 +260,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
               minHeight: 48,
               justifyContent: effectiveOpen ? 'initial' : 'center',
               px: 2.5,
+              ...((pathname === '/about' || pathname.startsWith('/about/')) && {
+                backgroundColor: 'rgba(255, 152, 0, 0.08)',
+                borderLeft: '3px solid',
+                borderLeftColor: 'primary.main',
+                '& .MuiListItemIcon-root': { color: 'primary.main' },
+              }),
             }}
             aria-label="About Me"
           >
@@ -280,6 +296,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           items={projects}
           itemKey="slug"
           itemText="title"
+          pathname={pathname}
         />
         <NavMenuItem<Experience>
           open={effectiveOpen}
@@ -291,6 +308,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           itemKey="slug"
           itemText="company"
           itemSecondaryText="date"
+          pathname={pathname}
         />
         <NavMenuItem<Education>
           open={effectiveOpen}
@@ -302,6 +320,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           itemKey="slug"
           itemText="university"
           itemSecondaryText="date"
+          pathname={pathname}
         />
         <ListItem disablePadding sx={{ display: 'block' }}>
             <ListItemButton
@@ -310,6 +329,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     minHeight: 48,
                     justifyContent: effectiveOpen ? 'initial' : 'center',
                     px: 2.5,
+                    ...((pathname === '/blog' || pathname.startsWith('/blog/')) && {
+                      backgroundColor: 'rgba(255, 152, 0, 0.08)',
+                      borderLeft: '3px solid',
+                      borderLeftColor: 'primary.main',
+                      '& .MuiListItemIcon-root': { color: 'primary.main' },
+                    }),
                 }}
                 aria-label="Blog"
             >
@@ -347,7 +372,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 >
                     <MapIcon />
                 </ListItemIcon>
-                <ListItemText primary="ThreatMap" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+                <ListItemText
+                    primary={
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        ThreatMap
+                        {effectiveOpen && <OpenInNewIcon sx={{ fontSize: 12 }} />}
+                      </Box>
+                    }
+                    sx={{ opacity: effectiveOpen ? 1 : 0 }}
+                />
             </ListItemButton>
         </ListItem>
         <ListItem disablePadding sx={{ display: 'block' }}>
@@ -372,7 +405,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 >
                     <ChatIcon />
                 </ListItemIcon>
-                <ListItemText primary="Chat" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+                <ListItemText
+                    primary={
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        Chat
+                        {effectiveOpen && <OpenInNewIcon sx={{ fontSize: 12 }} />}
+                      </Box>
+                    }
+                    sx={{ opacity: effectiveOpen ? 1 : 0 }}
+                />
             </ListItemButton>
         </ListItem>
         <ListItem disablePadding sx={{ display: 'block' }}>
@@ -397,7 +438,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 >
                     <TranslateIcon />
                 </ListItemIcon>
-                <ListItemText primary="Translate" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+                <ListItemText
+                    primary={
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        Translate
+                        {effectiveOpen && <OpenInNewIcon sx={{ fontSize: 12 }} />}
+                      </Box>
+                    }
+                    sx={{ opacity: effectiveOpen ? 1 : 0 }}
+                />
             </ListItemButton>
         </ListItem>
       </List>

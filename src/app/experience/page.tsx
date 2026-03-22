@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Timeline, TimelineItem, TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot, TimelineOppositeContent } from '@mui/lab';
 import WorkIcon from '@mui/icons-material/Work';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const getLogo = (slug: string) => {
   switch (slug) {
@@ -25,7 +26,14 @@ export default function ExperiencePage() {
       </Typography>
       <Timeline position="alternate">
         {experiences.map((experience, index) => (
-          <TimelineItem key={experience.slug}>
+          <motion.div
+            key={experience.slug}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: index * 0.15 }}
+          >
+          <TimelineItem>
             <TimelineOppositeContent
               sx={{ m: 'auto 0' }}
               align={index % 2 === 0 ? 'right' : 'left'}
@@ -55,6 +63,7 @@ export default function ExperiencePage() {
               </Link>
             </TimelineContent>
           </TimelineItem>
+          </motion.div>
         ))}
       </Timeline>
     </Container>

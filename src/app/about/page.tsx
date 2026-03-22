@@ -1,4 +1,4 @@
-import { Box, Typography, Container, Paper, Divider, IconButton, Stack, Chip, Avatar, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Box, Typography, Container, Paper, Divider, IconButton, Stack, Chip, Avatar, Accordion, AccordionSummary, AccordionDetails, Grid } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
@@ -30,33 +30,109 @@ const nationalParks: NationalPark[] = [
 export default function AboutPage() {
   return (
     <Container component="main" maxWidth="md">
+      {/* Hero Section */}
+      <Box sx={{ mt: 8, mb: 4 }}>
+        <Grid container spacing={4} alignItems="center">
+          <Grid size={{ xs: 12, md: 4 }} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Image
+              alt="Pratik Hingorani"
+              src="/img.png"
+              width={200}
+              height={200}
+              priority
+              style={{ borderRadius: '50%', marginBottom: '1rem' }}
+            />
+            <Stack direction="row" spacing={1} justifyContent="center">
+              <IconButton
+                aria-label="Email"
+                component="a"
+                href="mailto:hingorani.pratik@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="primary"
+              >
+                <EmailIcon fontSize="large" />
+              </IconButton>
+              <IconButton
+                aria-label="LinkedIn"
+                component="a"
+                href="https://www.linkedin.com/in/pratik-hingorani"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="primary"
+              >
+                <LinkedInIcon fontSize="large" />
+              </IconButton>
+              <IconButton
+                aria-label="GitHub"
+                component="a"
+                href="https://github.com/phingorani"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="primary"
+              >
+                <GitHubIcon fontSize="large" />
+              </IconButton>
+              <IconButton
+                aria-label="Steam"
+                component="a"
+                href="https://steamcommunity.com/profiles/76561197990018899/"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="primary"
+              >
+                <SteamIcon width={32} height={32} />
+              </IconButton>
+            </Stack>
+          </Grid>
+          <Grid size={{ xs: 12, md: 8 }}>
+            <Typography
+              component="span"
+              sx={{
+                fontFamily: 'var(--font-geist-mono)',
+                fontSize: '0.9rem',
+                color: 'primary.main',
+                display: 'block',
+                mb: 1,
+              }}
+            >
+              {'> building infrastructure_'}
+              <Box
+                component="span"
+                sx={{
+                  display: 'inline-block',
+                  width: '2px',
+                  height: '1em',
+                  backgroundColor: 'primary.main',
+                  ml: 0.5,
+                  verticalAlign: 'text-bottom',
+                  '@keyframes blink': {
+                    '0%, 100%': { opacity: 1 },
+                    '50%': { opacity: 0 },
+                  },
+                  animation: 'blink 1s step-end infinite',
+                }}
+              />
+            </Typography>
+            <Typography component="h1" variant="h2" gutterBottom>
+              Pratik Hingorani
+            </Typography>
+            <Typography component="h2" variant="h5" color="text.secondary" gutterBottom>
+              Software Engineer &amp; Infrastructure Builder — 8 years of full-stack development, now building AI-powered homelab infrastructure with Kubernetes, LLMs, and self-hosted everything.
+            </Typography>
+          </Grid>
+        </Grid>
+      </Box>
+
       <Paper
         elevation={3}
         sx={{
-          mt: 8,
           mb: 8,
           p: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
         }}
       >
-         <Image
-           alt="Pratik Hingorani"
-           src="/img.png"
-           width={150}
-           height={150}
-           priority
-           style={{ borderRadius: '50%', marginBottom: '1rem' }}
-         />
-        <Typography component="h1" variant="h2" gutterBottom>
-          Pratik Hingorani
-        </Typography>
-        <Typography component="h2" variant="h5" color="text.secondary" gutterBottom>
-          Software Engineer &amp; Infrastructure Builder — 8 years of full-stack development, now building AI-powered homelab infrastructure with Kubernetes, LLMs, and self-hosted everything.
-        </Typography>
-        <Box sx={{ mt: 4, width: '100%' }}>
-          <Accordion>
+        <Box sx={{ width: '100%' }}>
+          <Accordion defaultExpanded>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -122,48 +198,6 @@ export default function AboutPage() {
             <ContactMailIcon sx={{ mr: 1 }} /> Contact
           </Typography>
           <ContactForm />
-          <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 2 }}>
-            <IconButton
-              aria-label="Email"
-              component="a"
-              href="mailto:hingorani.pratik@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              color="primary"
-            >
-              <EmailIcon fontSize="large" />
-            </IconButton>
-            <IconButton
-              aria-label="LinkedIn"
-              component="a"
-              href="https://www.linkedin.com/in/pratik-hingorani"
-              target="_blank"
-              rel="noopener noreferrer"
-              color="primary"
-            >
-              <LinkedInIcon fontSize="large" />
-            </IconButton>
-            <IconButton
-              aria-label="GitHub"
-              component="a"
-              href="https://github.com/phingorani"
-              target="_blank"
-              rel="noopener noreferrer"
-              color="primary"
-            >
-              <GitHubIcon fontSize="large" />
-            </IconButton>
-            <IconButton
-              aria-label="Steam"
-              component="a"
-              href="https://steamcommunity.com/profiles/76561197990018899/"
-              target="_blank"
-              rel="noopener noreferrer"
-              color="primary"
-            >
-              <SteamIcon width={32} height={32} />
-            </IconButton>
-          </Stack>
         </Box>
       </Paper>
     </Container>
