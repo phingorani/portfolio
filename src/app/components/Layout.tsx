@@ -353,7 +353,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ListItem disablePadding sx={{ display: 'block' }}>
             <ListItemButton
                 component="a"
-                href="https://threatmap.pratikhingorani.com"
+                href="https://threats.pratikhingorani.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{

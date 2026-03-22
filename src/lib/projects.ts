@@ -78,7 +78,7 @@ export const projects: Project[] = [
     description: 'Real-time global threat visualization using GDELT event data. Three LLM models validate events in parallel with structured reasoning, backed by Redis caching and PostgreSQL persistence. Features an interactive Leaflet map with satellite toggle, event filtering, and mobile-responsive design.',
     shortDescription: 'Real-time GDELT threat visualization with 3 LLM validation models, Redis caching, and interactive Leaflet map.',
     githubUrl: 'https://github.com/phingorani/waffle-threatmap',
-    demoUrl: 'https://threatmap.pratikhingorani.com',
+    demoUrl: 'https://threats.pratikhingorani.com',
     techStack: [
       { name: 'Next.js', url: 'https://nextjs.org/' },
       { name: 'React', url: 'https://react.dev/' },
