@@ -53,7 +53,7 @@ export default function AboutPage() {
           Pratik Hingorani
         </Typography>
         <Typography component="h2" variant="h5" color="text.secondary" gutterBottom>
-          Software Engineer &amp; Infrastructure Builder — 7 years of full-stack development, now building AI-powered homelab infrastructure with Kubernetes, LLMs, and self-hosted everything.
+          Software Engineer &amp; Infrastructure Builder — 8 years of full-stack development, now building AI-powered homelab infrastructure with Kubernetes, LLMs, and self-hosted everything.
         </Typography>
         <Box sx={{ mt: 4, width: '100%' }}>
           <Accordion>
