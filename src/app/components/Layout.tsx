@@ -20,6 +20,9 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import ArticleIcon from '@mui/icons-material/Article';
 import BusinessIcon from '@mui/icons-material/Business';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import MapIcon from '@mui/icons-material/Map';
+import TranslateIcon from '@mui/icons-material/Translate';
+import ChatIcon from '@mui/icons-material/Chat';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import HolidaySwitcher from './HolidaySwitcher';
@@ -342,6 +345,81 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <SmartToyIcon />
                 </ListItemIcon>
                 <ListItemText primary="AI Chat" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+            </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+                component="a"
+                href="https://threatmap.pratikhingorani.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                    minHeight: 48,
+                    justifyContent: effectiveOpen ? 'initial' : 'center',
+                    px: 2.5,
+                }}
+                aria-label="ThreatMap"
+            >
+                <ListItemIcon
+                    sx={{
+                        minWidth: 0,
+                        mr: effectiveOpen ? 3 : 'auto',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <MapIcon />
+                </ListItemIcon>
+                <ListItemText primary="ThreatMap" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+            </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+                component="a"
+                href="https://chat.pratikhingorani.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                    minHeight: 48,
+                    justifyContent: effectiveOpen ? 'initial' : 'center',
+                    px: 2.5,
+                }}
+                aria-label="Chat"
+            >
+                <ListItemIcon
+                    sx={{
+                        minWidth: 0,
+                        mr: effectiveOpen ? 3 : 'auto',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <ChatIcon />
+                </ListItemIcon>
+                <ListItemText primary="Chat" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
+            </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+                component="a"
+                href="https://translate.pratikhingorani.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                    minHeight: 48,
+                    justifyContent: effectiveOpen ? 'initial' : 'center',
+                    px: 2.5,
+                }}
+                aria-label="Translate"
+            >
+                <ListItemIcon
+                    sx={{
+                        minWidth: 0,
+                        mr: effectiveOpen ? 3 : 'auto',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <TranslateIcon />
+                </ListItemIcon>
+                <ListItemText primary="Translate" sx={{ opacity: effectiveOpen ? 1 : 0 }} />
             </ListItemButton>
         </ListItem>
       </List>
