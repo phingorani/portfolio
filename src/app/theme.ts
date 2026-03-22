@@ -32,12 +32,12 @@ const getTheme = (mode: PaletteMode) => createTheme({
   },
   typography: {
     fontFamily: 'var(--font-inter)',
-    h1: { fontFamily: 'var(--font-geist-mono)' },
-    h2: { fontFamily: 'var(--font-geist-mono)' },
-    h3: { fontFamily: 'var(--font-geist-mono)' },
-    h4: { fontFamily: 'var(--font-geist-mono)' },
-    h5: { fontFamily: 'var(--font-geist-mono)' },
-    h6: { fontFamily: 'var(--font-geist-mono)' },
+    h1: { fontFamily: 'var(--font-geist-mono)', ...(mode === 'dark' && { color: '#f1f5f9' }) },
+    h2: { fontFamily: 'var(--font-geist-mono)', ...(mode === 'dark' && { color: '#f1f5f9' }) },
+    h3: { fontFamily: 'var(--font-geist-mono)', ...(mode === 'dark' && { color: '#e2e8f0' }) },
+    h4: { fontFamily: 'var(--font-geist-mono)', ...(mode === 'dark' && { color: '#e2e8f0' }) },
+    h5: { fontFamily: 'var(--font-geist-mono)', ...(mode === 'dark' && { color: '#cbd5e1' }) },
+    h6: { fontFamily: 'var(--font-geist-mono)', ...(mode === 'dark' && { color: '#cbd5e1' }) },
   },
   components: {
     MuiPaper: {
