@@ -4,7 +4,7 @@ FROM node:25.4.0-alpine AS base
 FROM base AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm install --legacy-peer-deps
 
 # 2. Builder stage
 FROM base AS builder
