@@ -23,6 +23,7 @@ import SmartToyIcon from '@mui/icons-material/SmartToy';
 import MapIcon from '@mui/icons-material/Map';
 import TranslateIcon from '@mui/icons-material/Translate';
 import ChatIcon from '@mui/icons-material/Chat';
+import SearchIcon from '@mui/icons-material/Search';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -361,7 +362,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     justifyContent: effectiveOpen ? 'initial' : 'center',
                     px: 2.5,
                 }}
-                aria-label="ThreatMap"
+                aria-label="Travel Warnings"
             >
                 <ListItemIcon
                     sx={{
@@ -375,7 +376,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <ListItemText
                     primary={
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                        ThreatMap
+                        Travel Warnings
                         {effectiveOpen && <OpenInNewIcon sx={{ fontSize: 12 }} />}
                       </Box>
                     }
@@ -442,6 +443,39 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     primary={
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                         Translate
+                        {effectiveOpen && <OpenInNewIcon sx={{ fontSize: 12 }} />}
+                      </Box>
+                    }
+                    sx={{ opacity: effectiveOpen ? 1 : 0 }}
+                />
+            </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+                component="a"
+                href="https://search.pratikhingorani.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                    minHeight: 48,
+                    justifyContent: effectiveOpen ? 'initial' : 'center',
+                    px: 2.5,
+                }}
+                aria-label="Search"
+            >
+                <ListItemIcon
+                    sx={{
+                        minWidth: 0,
+                        mr: effectiveOpen ? 3 : 'auto',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <SearchIcon />
+                </ListItemIcon>
+                <ListItemText
+                    primary={
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        Search
                         {effectiveOpen && <OpenInNewIcon sx={{ fontSize: 12 }} />}
                       </Box>
                     }
